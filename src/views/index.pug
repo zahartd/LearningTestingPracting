@@ -2,10 +2,12 @@ extends layouts/default
 include helpers/mixins
 
 block variables
-	- const title = "gulp-pug-starter"
+	- const title = "L/T/P Project"
 
 block content
 	include ../blocks/modules/header/header
+	main.page-main
+		h1.page-main__header Тесты по формулам для проверки знаний 
 	include ../blocks/modules/footer/footer
 
 block scripts
