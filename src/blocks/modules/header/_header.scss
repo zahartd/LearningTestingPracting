@@ -1,0 +1,39 @@
+.page-header {
+	background-color: #8789E1;
+
+	&__wrapper {
+		@include row-flex();
+		justify-content: space-between;
+	}
+
+	&__logo {
+		@include col();
+		@include size(5);
+	}
+
+	&__menu {
+		@include col();
+		@include size(7);
+	}
+
+}
+
+.main-menu {
+	@include row-flex();
+	align-items: center;
+
+	&__site-nav {
+		@include row-flex();
+		justify-content: space-around;
+	}
+
+	&__item {
+		@include col();
+		list-style-type: none;
+
+		a {
+			color: #262222;
+			text-decoration: none;
+		}
+	}
+}
