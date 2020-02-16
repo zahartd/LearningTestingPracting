@@ -10,7 +10,7 @@ mixin prewie-test(title, descr, href)
 				if descr
 					p= descr
 				else
-					p No content provided;
+					p No content provided
 
 mixin main-menu(custom_class)
 	nav(class='main-menu ' + custom_class)
@@ -21,3 +21,8 @@ mixin main-menu(custom_class)
 				a(href="index.html") Каталог тестов
 			li.main-menu__site-nav_active.main-menu__item
 				a(href="index.html") Новости
+
+mixin main-logo(custom_class)
+	a(class='main-logo ' + custom_class)
+		picture
+			img(src="img/svg/logo.svg" alt="Логотип LearningTestingProject Тесты по физике")

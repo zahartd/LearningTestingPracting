@@ -1,8 +1,6 @@
 footer.page-footer
 	.container.page-footer__wrapper
-		a.main-logo.page-footer__logo
-			picture
-
+		+main-logo('page-footer__logo')
 		.page-footer__copyright
 			p &copy 
 				a(href="zahartd") zahartd.com
@@ -11,10 +9,13 @@ footer.page-footer
 				li.page-footer__social-item
 					a(href="https://vk.com/") Вконтакте
 						picture
+							img(src="img/svg/vk.svg" alt="Вконтакте")
 				li.page-footer__social-item
 					a(href="https://www.instagram.com/") Инстаграм
 						picture
+							img(src="img/svg/inst.svg" alt="Инстаграм")
 				li.page-footer__social-item
 					a(href="https://ok.ru/") Одноклассники
 						picture
+							img(src="img/svg/ok.svg" alt="Одноклассники")
 		+main-menu('page-footer__menu')
