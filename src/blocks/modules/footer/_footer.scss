@@ -1,0 +1,26 @@
+.page-footer {
+	&__wrapper {
+		@include row-flex();
+		justify-content: space-between;
+	}
+
+	&__logo {
+		@include col();
+		@include size(2);
+	}
+
+	&__copyright {
+		@include col();
+		@include size(2);
+	}
+
+	&__social {
+		@include col();
+		@include size(2);
+	}
+
+	&__menu {
+		@include col();
+		@include size(6);
+	}
+}

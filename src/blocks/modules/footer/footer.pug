@@ -2,14 +2,7 @@ footer.page-footer
 	.container.page-footer__wrapper
 		a.main-logo.page-footer__logo
 			picture
-		nav.main-menu
-			ul.main-menu__site-nav
-				li.main-menu__site-nav_active.main-menu__item
-					a(href="index.html") Главная
-				li.main-menu__site-nav_active.main-menu__item
-					a(href="index.html") Каталог тестов
-				li.main-menu__site-nav_active.main-menu__item
-					a(href="index.html") Новости
+
 		.page-footer__copyright
 			p &copy 
 				a(href="zahartd") zahartd.com
@@ -24,3 +17,4 @@ footer.page-footer
 				li.page-footer__social-item
 					a(href="https://ok.ru/") Одноклассники
 						picture
+		+main-menu('page-footer__menu')

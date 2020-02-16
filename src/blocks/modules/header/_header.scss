@@ -17,23 +17,3 @@
 	}
 
 }
-
-.main-menu {
-	@include row-flex();
-	align-items: center;
-
-	&__site-nav {
-		@include row-flex();
-		justify-content: space-around;
-	}
-
-	&__item {
-		@include col();
-		list-style-type: none;
-
-		a {
-			color: #262222;
-			text-decoration: none;
-		}
-	}
-}
