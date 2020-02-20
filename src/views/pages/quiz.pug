@@ -1,0 +1,42 @@
+extends ../layouts/default
+
+block variables
+	- const title = "Test";
+
+block content
+	include ../../blocks/modules/header/header
+	main.quiz-main
+		.container
+			.quiz
+				include ../../blocks/modules/quiz-progress/quiz-progress
+				.quiz-page
+					h2.quiz-page__title Выберите проект вашего дома:
+					form#form.quizForm(name='form')
+						.quiz__answers-block
+							.quiz__answer
+								input#answer_radio_10.quiz-answer__radio(name='answer_radio_1' type='radio' value='Для пары')
+								label.answer__text(for='answer_radio_10') &Dcy;&lcy;&yacy; &pcy;&acy;&rcy;&ycy;
+							.quiz__answer
+								input#answer_radio_11.quiz-answer__radio(name='answer_radio_1' type='radio' value='Для семьи')
+								label.answer__text(for='answer_radio_11') &Dcy;&lcy;&yacy; &scy;&iecy;&mcy;&softcy;&icy;
+					.quiz-page__btn
+						button Далее
+	include ../../blocks/modules/footer/footer
+block scripts
+	script(src="js/pageB.js")
+	script(src="js/vendor.js")
+
+
+//- modules.define('quiz-progress', ['i-bem-dom'], function(provide, bemDom) {
+
+//- provide(bemDom.declBlock(this.name, {
+//-     onSetMod: {
+//-         js: {
+//-             inited: function() {
+                
+//-             }
+//-         }
+//-     }
+//- }));
+
+//- });
