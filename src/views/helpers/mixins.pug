@@ -1,16 +1,16 @@
-mixin prewie-test(title, descr, href)
-	li.prewie-test__item
+mixin preview-test(title, descr, href)
+	li.preview-test__item
 		a(href="")
-			.prewie-test__item-wrapper
+			.preview-test__item-wrapper
 				.preview-test__item-image
 					picture
 						img(alt=title src="img/preview__test/"+href+".svg")
-			h3.prewie-test__item-title= title
-			.preview-test__item-description
-				if descr
-					p= descr
-				else
-					p No content provided
+				h3.preview-test__item-title= title
+				.preview-test__item-description
+					if descr
+						p= descr
+					else
+						p No content provided
 
 mixin main-menu(custom_class)
 	nav(class='main-menu ' + custom_class)

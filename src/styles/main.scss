@@ -7,6 +7,10 @@
 @import "../blocks/components/components";
 @import "../blocks/modules/modules";
 
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	// font-family: 'PT Sans Caption', sans-serif;
