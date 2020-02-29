@@ -1,4 +1,4 @@
-// modules.define('preview-tests', ['i-bem-dom'], function(provide, bemDom) {
+// modules.define('math-editor', ['i-bem-dom'], function(provide, bemDom) {
 
 // provide(bemDom.declBlock(this.name, {
 //     onSetMod: {

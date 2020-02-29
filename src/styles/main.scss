@@ -21,6 +21,10 @@ body {
 	@include container();
 }
 
+.page-main {
+	min-height: calc(100vh - 80px);
+}
+
 .main-menu {
 	@include row-flex();
 	align-items: center;
@@ -39,4 +43,8 @@ body {
 			text-decoration: none;
 		}
 	}
+}
+
+.math-input {
+	padding-bottom: 70px;
 }

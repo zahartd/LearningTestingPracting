@@ -1,0 +1,73 @@
+.keyboard {
+    width: 704px;
+    margin: 0 auto;
+    
+    .key {
+        width: 40px;
+        height: 40px;
+        float: left;
+        cursor: pointer;
+        color: #fff;
+        margin-left: 6px;
+        text-align: center;
+        line-height: 40px;
+        background-image: linear-gradient(to top, #fce25b, #ecc92b);
+        box-shadow:
+            -1px 0 rgb(220, 195, 35),
+            -1px 1px rgb(192, 167, 7),
+            -2px 1px rgb(219, 194, 34),
+            -2px 2px rgb(191, 166, 6),
+            -3px 2px rgb(218, 193, 33),
+            -3px 3px rgb(190, 165, 5),
+            -4px 3px rgb(217, 192, 32),
+            -4px 4px rgb(189, 164, 4),
+            -5px 4px rgb(216, 191, 31),
+            -5px 5px rgb(188, 163, 3),
+            -6px 5px rgb(215, 190, 30),
+            -6px 6px rgb(187, 162, 2);
+        &:hover {
+            background-image: none;
+            background-color: #f9de53;
+        }
+    }
+
+    .backspace, .shift, .capslock {
+        width: 100px;
+    }
+
+    .capslock, .shift {
+        color: #4e2f2f;
+    }
+
+    .tab {
+        width: 80px;
+    }
+
+    .space {
+        width: 300px;
+        margin-left: 206px;
+    }
+    &__row {
+        width: 100%;
+        height: 40px;
+        margin-bottom: 10px;
+        clear: both;
+    }
+
+    sup {
+        position: absolute;
+        margin: -10px 0 0 -24px;
+        font-size: 12px;
+    }
+}
+
+#result {
+    display: block;
+    width: 680px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 10px;
+}

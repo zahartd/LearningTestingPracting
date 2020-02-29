@@ -69,6 +69,8 @@
     "yargs": "~13.2.4"
   },
   "dependencies": {
+    "katex": "^0.11.1",
+    "latex.js": "^0.12.1",
     "mathjax": "^3.0.1",
     "smart-grid": "^2.1.2"
   },

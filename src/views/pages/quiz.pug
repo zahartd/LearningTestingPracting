@@ -5,7 +5,7 @@ block variables
 
 block content
 	include ../../blocks/modules/header/header
-	main.quiz-main
+	main.page-main
 		.container
 			.quiz
 				include ../../blocks/modules/quiz-progress/quiz-progress
@@ -21,9 +21,12 @@ block content
 								label.answer__text(for='answer_radio_11') &Dcy;&lcy;&yacy; &scy;&iecy;&mcy;&softcy;&icy;
 					.quiz-page__btn
 						button Далее
+				.math-input
+					include ../../blocks/modules/math-editor/math-editor
+					include ../../blocks/modules/math-keyboard/math-keyboard
 	include ../../blocks/modules/footer/footer
 block scripts
-	script(src="js/pageB.js")
+	script(src="js/main.js")
 	script(src="js/vendor.js")
 
 

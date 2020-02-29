@@ -1,0 +1,22 @@
+.quiz__progress {
+    position: absolute;
+    top: 0;
+    left: 90%;
+}
+
+.progress-ring__circle {
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset .3;
+    transform-origin: center;
+}
+
+.progress-ring__text {
+    font-size: 18px;
+    font-weight: 700;
+
+    position: absolute;
+    top: calc(50% - 10px);
+    left: calc(50% - 12px);
+
+    color: #45de2c;
+}

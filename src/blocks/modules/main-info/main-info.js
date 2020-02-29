@@ -1,13 +1,13 @@
-modules.define('main-info', ['i-bem-dom'], function(provide, bemDom) {
+// modules.define('main-info', ['i-bem-dom'], function(provide, bemDom) {
 
-provide(bemDom.declBlock(this.name, {
-    onSetMod: {
-        js: {
-            inited: function() {
+// provide(bemDom.declBlock(this.name, {
+//     onSetMod: {
+//         js: {
+//             inited: function() {
                 
-            }
-        }
-    }
-}));
+//             }
+//         }
+//     }
+// }));
 
-});
+// });
