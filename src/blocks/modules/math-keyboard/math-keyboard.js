@@ -9,13 +9,14 @@ const capslockKey = document.querySelector(".capslock");
 const editorText = document.querySelector(".editor__text");
 let capslock = false;
 let shift = false;
-let keyboardKeyText;
+// let keyboardKeyText;
 let editorTextChild;
 let removedEditorTextChild;
 
 for (let i = 0; i < keyboardKeys.length; i++) {
     const keyboardKey = keyboardKeys[i];
-    keyboardKeyText = keyboardKey.textContent;
+    let keyboardKeyText = keyboardKey.textConte;
+    const keyboardKeyClass = keyboardKey.querySelector("span").className;
 
     keyboardKey.onclick = function() {
         if (keyboardKeyText == "Backspace" ||
@@ -42,7 +43,7 @@ for (let i = 0; i < keyboardKeys.length; i++) {
             if (keyboardKeyText == "Caps Lock") {
 
                 if (capslock) {
-                    capslockKey.style.color = "#929292";
+                    capslockKey.style.color = "#4e2f2f";
                     capslock = false;
                 } else {
                     capslockKey.style.color = "#ffffff";
@@ -53,7 +54,7 @@ for (let i = 0; i < keyboardKeys.length; i++) {
             if (keyboardKeyText == "Shift") {
 
                 if (shift) {
-                    shiftKey.style.color = "#929292";
+                    shiftKey.style.color = "#4e2f2f";
                     shift = false;
                 } else {
                     shiftKey.style.color = "#ffffff";
@@ -74,6 +75,54 @@ for (let i = 0; i < keyboardKeys.length; i++) {
             if (shift) {
                 keyboardKeyText = shift.querySelector("sup").textContent;
             }
+
+            console.log(keyboardKeyText);
+            console.log(keyboardKeyClass);
+
+            switch(keyboardKeyClass) {
+            case "derivative":
+                keyboardKeyText = "'";
+                break;
+            case "two-derivative":
+                keyboardKeyText = "''";
+                break;
+            case "sum":
+                keyboardKeyText = "\\sum";
+                break;
+            case "integral":
+                keyboardKeyText = "\\int";
+                break;
+            case "plus":
+                keyboardKeyText = "+";
+                break;
+            case "minus":
+                keyboardKeyText = "-";
+                break;
+            case "times":
+                keyboardKeyText = "*";
+                break;
+            case "division":
+                keyboardKeyText = "/";
+                break;
+            case "plus-minus":
+                keyboardKeyText = "\\pm";
+                break;
+            case "cosine":
+                keyboardKeyText = "\\cos";
+                break;
+            case "sine":
+                keyboardKeyText = "\\sin";
+                break;
+            case "tan":
+                keyboardKeyText = "\\tg";
+                break;
+            case "equally":
+                keyboardKeyText = "=";
+                break;
+            default:
+                console.log("it is goodness");
+            }
+
 
             console.log(keyboardKeyText);
             let textNode = katex.renderToString(keyboardKeyText);
