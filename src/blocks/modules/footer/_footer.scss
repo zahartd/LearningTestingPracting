@@ -19,6 +19,12 @@
 	&__social {
 		@include col();
 		@include size(2);
+		&-list {
+
+		}
+		&-item {
+			font-size: 0px;
+		}
 	}
 
 	&__menu {

@@ -1,4 +1,6 @@
 extends ../layouts/default
+include ../helpers/mixins
+include ../helpers/variables
 
 block variables
 	- const title = "Test";
@@ -28,18 +30,3 @@ block content
 block scripts
 	script(src="js/main.js")
 	script(src="js/vendor.js")
-
-
-//- modules.define('quiz-progress', ['i-bem-dom'], function(provide, bemDom) {
-
-//- provide(bemDom.declBlock(this.name, {
-//-     onSetMod: {
-//-         js: {
-//-             inited: function() {
-                
-//-             }
-//-         }
-//-     }
-//- }));
-
-//- });

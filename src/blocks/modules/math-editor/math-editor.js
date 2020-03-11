@@ -1,13 +1,7 @@
-// modules.define('math-editor', ['i-bem-dom'], function(provide, bemDom) {
+const editor = document.querySelector(".math-editor");
+const result = document.querySelector("#result");
 
-// provide(bemDom.declBlock(this.name, {
-//     onSetMod: {
-//         js: {
-//             inited: function() {
-                
-//             }
-//         }
-//     }
-// }));
 
-// });
+editor.onclick = function() {
+    result.focus();
+};

@@ -1,4 +1,4 @@
-.editor {
+.math-editor {
     position: relative;
     min-height: 48px;
     max-height: 288px;
@@ -7,4 +7,30 @@
     overflow-x: hidden;
     padding-top: 18px;
     padding-bottom: 18px;
+    .katex {
+        font-size: 2em;
+    }
+    &__cursor {
+        position: absolute;
+        z-index: 3002;
+        height: 32px;
+        color: #738dc3;
+        font-family: sans-serif, "Segoe UI", "Lucida Grande", Tahoma, Arial;
+        font-size: 1em;
+        font-style: normal;
+        pointer-events: none;
+        border-left: medium solid #738dc3;
+        // opacity: 0;
+    }
+}
+
+#result {
+    display: block;
+    width: 680px;
+    height: 80px;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 10px;
 }
