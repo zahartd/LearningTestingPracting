@@ -1,641 +1,662 @@
+"use strict";
+
+
 import katex from "katex";
 import renderMathInElement from "katex/dist/contrib/auto-render.min.js";
 
-
-const keyboardKeys = document.querySelectorAll(".keyboard .key");
-const result = document.querySelector("#result");
-const resultA = document.querySelector("#result-a");
-const resultB = document.querySelector("#result-b");
-const resultIU = document.querySelector("#result-iu");
-const resultIndexTop = document.querySelector("#resultIndexTop");
-const shiftKey = document.querySelector(".shift");
-const capslockKey = document.querySelector(".capslock");
-const editorText = document.querySelector(".math-editor__text");
 let formula = [];
 let capslock = false;
 let shift = false;
-let editorTextChild;
-let removedEditorTextChild;
-let keyboardInput;
-let textNode;
+let editorTextChild = "";
+let removedEditorTextChild = "";
+let keyboardInput = "";
+let textNode = "";
 let inputMode = ["base"];
-let insertFormula;
-let insertFormulaA = [];
-let insertFormulaB = [];
-let insertFormulaN = [];
-let insertFormulaX = "";
+let inputModeTop = "";
+let insertFormulaFractionBase = [];
+let insertFormulaFractionA = [];
+let insertFormulaFractionB = [];
+let insertFormulaIndexBottomN = [];
+let insertFormulaIndexBottomX = "";
+let insertFormulaIndexTopX = [];
 let insertFormulaIndexTopE = "";
-let insertFormulaIndexTopX = "";
-let mode = "base";
+const keyboardKeys = document.querySelectorAll( ".keyboard .key" );
+const resultBase = document.querySelector( "#resultBase" );
+const resultFractionA = document.querySelector( "#resultFractionA" );
+const resultFractionB = document.querySelector( "#resultFractionB" );
+const resultIndexBottom = document.querySelector( "#resultIndexBottom" );
+const resultIndexTop = document.querySelector( "#resultIndexTop" );
+const shiftKey = document.querySelector( ".shift" );
+const capslockKey = document.querySelector( ".capslock" );
+const editorText = document.querySelector( ".math-editor__text" );
+
+
 
 function removeLastFormula() {
-    editorTextChild = editorText.querySelectorAll(".katex");
-    removedEditorTextChild = editorTextChild[editorTextChild.length - 1];
-    removedEditorTextChild.remove();
-    formula.pop();
+  editorTextChild = editorText.querySelectorAll( ".katex" );
+  removedEditorTextChild = editorTextChild[editorTextChild.length - 1];
+  removedEditorTextChild.remove();
+  formula.pop();
 }
+
+// Input Base
+
+function inputBase() {
+  console.log( "base" );
+  window.addEventListener( "keydown", keydownBackspaceBase );
+  window.removeEventListener( "keydown", keydownBackspaceIndexBottom );
+  window.removeEventListener( "keydown", keydownEnterIndexBottom );
+  window.removeEventListener( "keydown", keydownBackspaceIndexTop );
+  window.removeEventListener( "keydown", keydownEnterIndexTop );
+  inputKeyboardFormula( inputMode );
+  resultBase.oninput = function () {
+    keyboardInput = resultBase.value + " ";
+    resultBase.value = "";
+    textNode = katex.renderToString( keyboardInput );
+    formula.push( keyboardInput );
+    console.log( formula );
+    console.log( textNode );
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+    resultBase.focus();
+  };
+}
+
+function keydownBackspaceBase() {
+  if ( event.code === "Backspace" ) {
+    removeLastFormula();
+    resultBase.value = resultBase.value.slice( 0, resultBase.value.length - 1 );
+    formula.pop();
+    console.log( formula );
+    resultBase.focus();
+  }
+}
+
+// Input FractionA
 
 function inputFractionA() {
-    console.log("fractionA");
-    window.removeEventListener("keydown", keydownBackspaceBase);
-    window.removeEventListener("keydown", keydownBackspaceIndexUnder);
-    window.removeEventListener("keydown", keydownEnterIndex);
-    window.addEventListener("keydown", keydownBackspaceFractionA);
-    window.addEventListener("keydown", keydownEnterFractionA);
-    inputKeyboardFormula(mode);
-    resultA.oninput = function() {
-        insertFormulaA.push(resultA.value);
-        resultA.value = "";
-        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{b}";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        removeLastFormula();
-        formula.push(keyboardInput);
-        editorText.insertAdjacentHTML("beforeend", textNode);
-        resultA.focus();
-        console.log(insertFormulaA);
-    };
+  console.log("fractionA");
+  window.removeEventListener( "keydown", keydownBackspaceBase );
+  window.removeEventListener( "keydown", keydownBackspaceIndexBottom );
+  window.removeEventListener( "keydown", keydownEnterIndexBottom );
+  window.removeEventListener( "keydown", keydownBackspaceIndexTop );
+  window.removeEventListener( "keydown", keydownEnterIndexTop );
+  window.addEventListener( "keydown", keydownBackspaceFractionA );
+  window.addEventListener( "keydown", keydownEnterFractionA );
+  inputModeTop = inputMode[inputMode.length - 1];
+  inputKeyboardFormula( inputModeTop );
+  resultFractionA.oninput = function () {
+    insertFormulaFractionA.push( resultFractionA.value );
+    resultFractionA.value = "";
+    keyboardInput = "\\frac{" + insertFormulaFractionA.join( "" ) + "}" + "{b} ";
+    textNode = katex.renderToString( keyboardInput );
+    removeLastFormula();
+    formula.push( keyboardInput );
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+    resultFractionA.focus();
+    console.log( insertFormulaFractionA );
+  };
 }
+
+function keydownBackspaceFractionA() {
+  if ( event.code === "Backspace" ) {
+    console.log( "bs_fracA" );
+    resultFractionA.value = resultFractionA.value.slice( 0, resultFractionA.value.length - 1 );
+    insertFormulaFractionA.pop();
+    keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{b} ";
+    textNode = katex.renderToString( keyboardInput );
+    removeLastFormula();
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+  }
+}
+
+function keydownEnterFractionA() {
+  if ( event.code === "Enter" ) {
+    inputMode.pop();
+    inputMode.push( "fractionB" );
+    inputModeTop = inputMode[inputMode.length - 1];
+    resultFractionB.focus();
+    inputFractionB();
+  }
+}
+
+// Input FractionB
 
 function inputFractionB() {
-    console.log("fractionB");
-    window.addEventListener("keydown", keydownBackspaceFractionB);
-    window.addEventListener("keydown", keydownEnterFractionB);
-    window.removeEventListener("keydown", keydownBackspaceFractionA);
-    window.removeEventListener("keydown", keydownEnterFractionA);
-    inputKeyboardFormula(inputMode);
-    resultB.oninput = function() {
-        console.log(insertFormulaA);
-        insertFormulaB.push(resultB.value);
-        resultB.value = "";
-        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{" + insertFormulaB.join("") + "}";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        formula.pop();
-        formula.push(keyboardInput);
-        removeLastFormula();
-        editorText.insertAdjacentHTML("beforeend", textNode);
-        resultB.focus();
-    };
+  console.log( "fractionB" );
+  window.removeEventListener( "keydown", keydownBackspaceFractionA );
+  window.removeEventListener( "keydown", keydownEnterFractionA );
+  window.removeEventListener( "keydown", keydownEnterIndexBottom );
+  window.removeEventListener( "keydown", keydownEnterIndexTop );
+  window.addEventListener( "keydown", keydownBackspaceFractionB );
+  window.addEventListener( "keydown", keydownEnterFractionB );
+  inputModeTop = inputMode[inputMode.length - 1];
+  inputKeyboardFormula(inputModeTop);
+  resultFractionB.oninput = function () {
+    insertFormulaFractionB.push( resultFractionB.value );
+    resultFractionB.value = "";
+    keyboardInput = "\\frac{" + insertFormulaFractionA.join( "" ) + "}" + "{" + insertFormulaFractionB.join( "" ) + "} ";
+    textNode = katex.renderToString( keyboardInput );
+    removeLastFormula();
+    formula.push( keyboardInput );
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+    resultFractionB.focus();
+    console.log( insertFormulaFractionB );
+  };
+}
+
+function keydownBackspaceFractionB() {
+  if ( event.code === "Backspace" ) {
+    console.log( "bs_fracB" );
+    resultFractionB.value = resultFractionB.value.slice( 0, resultFractionB.value.length - 1 );
+    insertFormulaFractionB.pop();
+    keyboardInput = "\\frac{" + insertFormulaFractionA.join( "" ) + "}" + "{" + insertFormulaFractionB.join( "" ) + "} ";
+    textNode = katex.renderToString( keyboardInput );
+    removeLastFormula();
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+  }
+}
+
+function keydownEnterFractionB() {
+  if ( event.code === "Enter" ) {
+    inputMode.pop();
+    window.addEventListener( "keydown", keydownBackspaceBase );
+    window.removeEventListener( "keydown", keydownBackspaceFractionB );
+    window.removeEventListener( "keydown", keydownEnterFractionB );
+    insertFormulaFractionA = [];
+    insertFormulaFractionB = [];
+    resultBase.focus();
+  }
+}
+
+// Input IndexBottom
+
+function inputIndexBottom() {
+  console.log( "IndexBottom" );
+  window.removeEventListener( "keydown", keydownBackspaceBase );
+  window.removeEventListener( "keydown", keydownBackspaceIndexBottom );
+  window.removeEventListener( "keydown", keydownEnterIndexBottom );
+  window.removeEventListener( "keydown", keydownBackspaceIndexTop );
+  window.removeEventListener( "keydown", keydownEnterIndexTop );
+  window.removeEventListener( "keydown", keydownBackspaceFractionA );
+  window.removeEventListener( "keydown", keydownEnterFractionA );
+  window.removeEventListener( "keydown", keydownEnterIndexTop );
+  window.addEventListener( "keydown", keydownBackspaceIndexBottom );
+  window.addEventListener( "keydown", keydownEnterIndexBottom );
+  
+  inputKeyboardFormula( inputMode );
+  resultIndexBottom.oninput = function () {
+    insertFormulaIndexBottomN.push( resultIndexBottom.value );
+    resultIndexBottom.value = "";
+    keyboardInput = insertFormulaIndexBottomX + "_" + "{" + insertFormulaIndexBottomN.join( "" ) + "} ";
+    console.log(keyboardInput);
+    textNode = katex.renderToString( keyboardInput );
+    console.log( textNode );
+    formula.pop();
+    formula.push( keyboardInput );
+    removeLastFormula();
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+    resultIndexBottom.focus();
+  };
+}
+
+function keydownBackspaceIndexBottom() {
+  if ( event.code === "Backspace" ) {
+    console.log( "bs_index" );
+    removeLastFormula();
+    resultIndexBottom.value = resultIndexBottom.value.slice( 0, resultIndexBottom.value.length - 1 );
+    insertFormulaIndexBottomN.pop();
+    console.log( insertFormulaIndexBottomN );
+    keyboardInput = insertFormulaIndexBottomX + "_" + "{" + insertFormulaIndexBottomN.join( "" ) + "} ";
+    console.log( keyboardInput );
+    textNode = katex.renderToString( keyboardInput );
+    console.log( textNode );
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+  }
+}
+
+function keydownEnterIndexBottom() {
+  if ( event.code === "Enter" ) {
+    inputMode = "base";
+    insertFormulaIndexBottomN = [];
+    resultBase.focus();
+  }
+}
+
+// Input IndexTop
+
+function inputIndexTop() {
+  console.log( "indexTop" );
+  window.addEventListener( "keydown", keydownBackspaceIndexTop );
+  window.addEventListener( "keydown", keydownEnterIndexTop );
+  window.removeEventListener( "keydown", keydownBackspaceBase );
+  inputKeyboardFormula( inputMode );
+  resultIndexTop.oninput = function () {
+    insertFormulaIndexTopX.push(resultIndexTop.value);
+    resultIndexTop.value = "";
+    keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX.join( "" ) + "} ";
+    console.log( keyboardInput );
+    textNode = katex.renderToString( keyboardInput );
+    console.log( textNode );
+    removeLastFormula();
+    formula.pop();
+    formula.push( keyboardInput );
+    editorText.insertAdjacentHTML( "beforeend", textNode );
+    resultIndexTop.focus();
+  };
+}
+
+function keydownBackspaceIndexTop() {
+  if (event.code === "Backspace") {
+    console.log( "bs_index" );
+    removeLastFormula();
+    resultIndexTop.value = resultIndexTop.value.slice( 0, resultIndexTop.value.length - 1 );
+    insertFormulaIndexTopX = insertFormulaIndexTopX.slice(0, insertFormulaIndexTopX.length - 1);
+    console.log(insertFormulaIndexTopX);
+    keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
+    console.log(keyboardInput);
+    textNode = katex.renderToString(keyboardInput) + " ";
+    console.log(textNode);
+    editorText.insertAdjacentHTML("beforeend", textNode);
+  }
+}
+
+function keydownEnterIndexTop() {
+  if ( event.code === "Enter" ) {
+    inputMode = "base";
+    insertFormulaIndexTopX = [];
+    resultBase.focus();
+  }
 }
 
 
-function inputFormuls() {
-    if (inputMode == "IU") {
-        resultIU.focus();
-        console.log("IU");
-        window.addEventListener("keydown", keydownBackspaceIndexUnder);
-        window.addEventListener("keydown", keydownEnterIndex);
-        window.removeEventListener("keydown", keydownBackspaceBase);
-        inputKeyboardFormula(inputMode);
-        resultIU.oninput = function() {
-            insertFormulaN.push(resultIU.value);
-            resultIU.value = "";
-            keyboardInput = insertFormulaX + "_" + "{" + insertFormulaN.join("") + "}" + " ";
+
+function inputKeyboardFormula() {
+  for (let i = 0; i < keyboardKeys.length; i++) {
+    const keyboardKey = keyboardKeys[i];
+    let keyboardKeyText = keyboardKey.textContent;
+    const keyboardKeyClass = keyboardKey.querySelector("span").className;
+
+    keyboardKey.onclick = function () {
+      if (keyboardKeyText == "Tab" ||
+          keyboardKeyText == "Caps Lock" ||
+          keyboardKeyText == "Shift" ||
+          keyboardKeyText == "Backspace" ||
+          keyboardKeyText == "Space") {
+
+        console.log(keyboardKeyText);
+
+        if (keyboardKeyText == "Backspace") {
+          switch (inputMode) {
+          case "base":
+            removeLastFormula();
+            resultBase.value = resultBase.value.slice(0, resultBase.value.length - 1);
+            formula.pop();
+            console.log(formula);
+            resultBase.focus();
+            break;
+          case "fractionA":
+            removeLastFormula();
+            resultFractionA.value = resultFractionA.value.slice(0, resultFractionA.value.length - 1);
+            console.log("bs_fracA");
+            insertFormulaFractionA.pop();
+            console.log(insertFormulaFractionA);
+            keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{b}";
             console.log(keyboardInput);
             textNode = katex.renderToString(keyboardInput) + " ";
             console.log(textNode);
-            formula.pop();
-            formula.push(keyboardInput);
-            removeLastFormula();
             editorText.insertAdjacentHTML("beforeend", textNode);
-            resultIU.focus();
-        };
-    } else if (inputMode == "indexTop") {
-        console.log("indexTop");
-        window.addEventListener("keydown", keydownBackspaceIndexTop);
-        window.addEventListener("keydown", keydownEnterIndex);
-        window.removeEventListener("keydown", keydownBackspaceBase);
-        inputKeyboardFormula(inputMode);
-        resultIndexTop.oninput = function() {
-            insertFormulaIndexTopX += resultIndexTop.value;
-            resultIndexTop.value = "";
+            resultFractionA.focus();
+            break;
+          case "fractionB":
+            removeLastFormula();
+            resultFractionB.value = resultFractionB.value.slice(0, resultFractionB.value.length - 1);
+            console.log("bs_fracB");
+            insertFormulaFractionB.pop();
+            console.log(insertFormulaFractionB);
+            keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{" + insertFormulaFractionB.join("") + "}";
+            console.log(keyboardInput);
+            textNode = katex.renderToString(keyboardInput) + " ";
+            console.log(textNode);
+            editorText.insertAdjacentHTML("beforeend", textNode);
+            resultFractionB.focus();
+            break;
+          case "IU":
+            removeLastFormula();
+            resultIndexBottom.value = resultIndexBottom.value.slice(0, resultIndexBottom.value.length - 1);
+            console.log("bs_index");
+            insertFormulaIndexBottomN.pop();
+            console.log(insertFormulaIndexBottomN);
+            keyboardInput = insertFormulaIndexBottomX + "_" + "{" + insertFormulaIndexBottomN.join("") + "}" + " ";
+            console.log(keyboardInput);
+            textNode = katex.renderToString(keyboardInput) + " ";
+            console.log(textNode);
+            editorText.insertAdjacentHTML("beforeend", textNode);
+            resultIndexBottom.focus();
+            break;
+          case "indexTop":
+            removeLastFormula();
+            resultIndexTop.value = resultIndexTop.value.slice(0, resultIndexTop.value.length - 1);
+            console.log("bs_index");
+            insertFormulaIndexTopX = insertFormulaIndexTopX.slice(0, insertFormulaIndexTopX.length - 1);
+            console.log(insertFormulaIndexTopX);
             keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
             console.log(keyboardInput);
             textNode = katex.renderToString(keyboardInput) + " ";
             console.log(textNode);
-            removeLastFormula();
-            formula.pop();
-            formula.push(keyboardInput);
             editorText.insertAdjacentHTML("beforeend", textNode);
             resultIndexTop.focus();
-        };
-    } else if (inputMode == "base") {
-        console.log("base");
-        window.addEventListener("keydown", keydownBackspaceBase);
-        window.removeEventListener("keydown", keydownBackspaceIndexUnder);
-        window.removeEventListener("keydown", keydownBackspaceIndexTop);
-        inputKeyboardFormula(inputMode);
-        result.oninput = function() {
-            keyboardInput = result.value;
-            result.value = "";
-            textNode = katex.renderToString(keyboardInput) + " ";
-            formula.push(keyboardInput);
-            console.log(formula);
-            console.log(textNode);
-            editorText.insertAdjacentHTML("beforeend", textNode);
-            result.focus();
-        };
-    }
+            break;
+          default:
+                
+            break;
+          }
+        }
+        
 
+        if (keyboardKeyText == "Tab") {
+          resultBase.value = resultBase.value + "        ";
+          editorText.textContent = editorText.textContent + "        ";
+          resultBase.focus();
+        }
+
+        if (keyboardKeyText == "Caps Lock") {
+
+          if (capslock) {
+            capslockKey.style.color = "#4e2f2f";
+            capslock = false;
+          } else {
+            capslockKey.style.color = "#ffffff";
+            capslock = true;
+          }
+        }
+
+        if (keyboardKeyText == "Shift") {
+
+          if (shift) {
+            shiftKey.style.color = "#4e2f2f";
+            shift = false;
+          } else {
+            shiftKey.style.color = "#ffffff";
+            shift = true;
+          }
+        }
+
+        if (keyboardKeyText == "Space") {
+          editorText.insertAdjacentHTML("beforeend", " ");
+          resultBase.value = resultBase.value + " ";
+          resultBase.focus();
+        }
+
+      } else {
+        if (capslock) {
+          keyboardKeyText = keyboardKeyText.toUpperCase();
+        }
+
+        if (shift) {
+          keyboardKeyText = shift.querySelector("sup").textContent;
+        }
+
+        console.log(keyboardKeyText);
+        console.log(keyboardKeyClass);
+
+        switch(keyboardKeyClass) {
+        case "derivative":
+          keyboardKeyText = "' ";
+          break;
+        case "two-derivative":
+          keyboardKeyText = "'' ";
+          break;
+        case "sum":
+          keyboardKeyText = "\\sum ";
+          break;
+        case "integral":
+          keyboardKeyText = "\\int ";
+          break;
+        case "plus":
+          keyboardKeyText = "+ ";
+          break;
+        case "minus":
+          keyboardKeyText = "- ";
+          break;
+        case "times":
+          keyboardKeyText = "* ";
+          break;
+        case "division":
+          keyboardKeyText = "/ ";
+          break;
+        case "plus-minus":
+          keyboardKeyText = "\\pm ";
+          break;
+        case "cosine":
+          keyboardKeyText = "\\cos ";
+          break;
+        case "sine":
+          keyboardKeyText = "\\sin ";
+          break;
+        case "tan":
+          keyboardKeyText = "\\tg ";
+          break;
+        case "equally":
+          keyboardKeyText = "= ";
+          break;
+        case "phi":
+          keyboardKeyText = "\\phi ";
+          break;
+        case "rho":
+          keyboardKeyText = "\\rho ";
+          break;
+        case "nu":
+          keyboardKeyText = "\\nu ";
+          break;
+        case "alpha":
+          keyboardKeyText = "\\alpha ";
+          break;
+        case "beta":
+          keyboardKeyText = "\\beta ";
+          break;
+        case "gamma":
+          keyboardKeyText = "\\gamma ";
+          break;
+        case "delta":
+          keyboardKeyText = "\\delta ";
+          break;
+        case "eta":
+          keyboardKeyText = "\\eta ";
+          break;
+        case "lambda":
+          keyboardKeyText = "\\lambda ";
+          break;
+        case "mu":
+          keyboardKeyText = "\\mu ";
+          break;
+        case "pi":
+          keyboardKeyText = "\\pi ";
+          break;
+        case "sigma":
+          keyboardKeyText = "\\sigma ";
+          break;
+        case "epsilon":
+          keyboardKeyText = "\\epsilon ";
+          break;
+        case "varepsilon":
+          keyboardKeyText = "\\varepsilon ";
+          break;
+        case "vartheta":
+          keyboardKeyText = "\\vartheta ";
+          break;
+        case "thetasym":
+          keyboardKeyText = "\\thetasym ";
+          break;
+        case "varphi":
+          keyboardKeyText = "\\varphi ";
+          break;
+        case "varDelta":
+          keyboardKeyText = "\\varDelta ";
+          break;
+        case "infinity":
+          keyboardKeyText = "\\infty ";
+          break;
+        case "percent":
+          keyboardKeyText = "\\% ";
+          break;
+        case "prod":
+          keyboardKeyText = "\\prod ";
+          break;
+        case "sqrt":
+          insertFormulaFractionBase = formula.join("");
+          editorText.innerHTML = "";
+          formula = [];
+          keyboardKeyText = "\\sqrt{" + insertFormulaFractionBase + "} ";
+          break;
+        case "vector":
+          console.log(inputMode);
+          inputModeTop = inputMode[inputMode.length - 1];
+          switch (inputModeTop) {
+          case "base":
+            insertFormulaFractionBase = formula.pop();
+            removeLastFormula();
+            resultBase.focus();
+            break;
+          case "fractionA":
+            insertFormulaFractionBase = insertFormulaFractionA.pop();
+            resultFractionA.focus();
+            break;
+          case "fractionB":
+            insertFormulaFractionBase = insertFormulaFractionB.pop();
+            resultFractionB.focus();
+            break;
+          }
+          keyboardKeyText = "\\vec{"+ insertFormulaFractionBase + "} ";
+          break;
+        case "index-b":
+          inputMode.push("indexBottom");
+          inputModeTop = inputMode[inputMode.length - 1];
+          switch (inputModeTop) {
+          case "base":
+            insertFormulaIndexBottomX = formula.pop();
+            removeLastFormula();
+            break;
+          case "fractionA":
+            insertFormulaIndexBottomX = insertFormulaFractionA.pop();
+            break;
+          case "fractionB":
+            insertFormulaIndexBottomX = insertFormulaFractionB.pop();
+            break;
+          }
+
+          resultIndexBottom.focus();
+          inputIndexBottom();
+          keyboardKeyText = insertFormulaIndexBottomX + "_n";
+          break;
+        case "index-t":
+          inputMode.push("indexTop");
+          inputModeTop = inputMode[inputMode.length - 1];
+          switch (inputModeTop) {
+          case "base":
+            insertFormulaIndexTopE = formula.pop();
+            removeLastFormula();
+            break;
+          case "fractionA":
+            insertFormulaIndexTopE = insertFormulaFractionA.pop();
+            break;
+          case "fractionB":
+            insertFormulaIndexTopE = insertFormulaFractionB.pop();
+            break;
+          }
+           
+          resultIndexTop.focus();
+          inputIndexTop();
+          keyboardKeyText = insertFormulaIndexTopE + "^x";
+          break;
+        case "fraction":
+          inputMode.push("fractionA");
+          resultFractionA.focus();
+          inputFractionA();
+          keyboardKeyText = "\\frac{a}{b}";
+          break;
+        default:
+          console.log("it is goodness");
+        }
+
+        console.log(inputMode);
+        inputModeTop = inputMode[inputMode.length - 1];
+        switch (inputModeTop) {
+        case "base":
+          formula.push(keyboardKeyText);
+          console.log(formula);
+          textNode = katex.renderToString(keyboardKeyText) + " ";
+          console.log(textNode);
+          editorText.insertAdjacentHTML("beforeend", textNode);
+          console.log(keyboardKeyClass);
+          if ( keyboardKeyClass == "index-u" || keyboardKeyClass == "index-t" || keyboardKeyClass == "fraction" ) {
+            console.log("LOL");
+          } else {
+            resultBase.focus();
+          }
+          break;
+        case "fractionA":
+          insertFormulaFractionA.push(keyboardKeyText);
+          console.log(keyboardKeyText);
+          console.log(insertFormulaFractionA);
+          keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{b}";
+
+          console.log(keyboardInput);
+          textNode = katex.renderToString(keyboardInput) + " ";
+          console.log(textNode);
+          removeLastFormula();
+          formula.push(keyboardInput);
+          editorText.insertAdjacentHTML("beforeend", textNode);
+          if (inputMode == "fractionA") {
+            resultFractionA.focus();
+          }
+          break;
+        case "fractionB":
+          insertFormulaFractionB.push(keyboardKeyText);
+          keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{" + insertFormulaFractionB.join("") + "}";
+          console.log(keyboardInput);
+          textNode = katex.renderToString(keyboardInput) + " ";
+          console.log(textNode);
+          removeLastFormula();
+          editorText.insertAdjacentHTML("beforeend", textNode);
+          resultFractionB.focus();
+          break;
+        case "IU":
+          insertFormulaIndexBottomN.push(keyboardKeyText);
+          keyboardInput = insertFormulaIndexBottomX + "_" + "{" + insertFormulaIndexBottomN.join("") + "}" + " ";
+          console.log(keyboardInput);
+          textNode = katex.renderToString(keyboardInput) + " ";
+          console.log(textNode);
+          removeLastFormula();
+          editorText.insertAdjacentHTML("beforeend", textNode);
+          resultIndexBottom.focus();
+          break;
+        case "indexTop":
+          insertFormulaIndexTopX += keyboardKeyText;
+          keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
+          console.log(keyboardInput);
+          textNode = katex.renderToString(keyboardInput) + " ";
+          console.log(textNode);
+          removeLastFormula();
+          editorText.insertAdjacentHTML("beforeend", textNode);
+          resultIndexTop.focus();
+          break;
+        default:
+          console.log("zz");
+        }
+        console.log(formula);
+      }
+    };
+   
+  }
 }
 
-renderMathInElement(document.body);
-
-result.onfocus = function() {
-    inputMode = "base";
-    inputFormuls();
+resultBase.onfocus = function () {
+  inputMode = "base";
+  inputBase();
 };
 
-// resultIU.onfocus = function() {
-//     inputFormuls('iu', null);
-// }
+inputModeTop = inputMode[inputMode.length - 1];
 
-function keydownBackspaceBase() {
-    if (event.code === "Backspace") {
-        removeLastFormula();
-        result.value = result.value.slice(0, result.value.length - 1);
-        formula.pop();
-        console.log(formula);
-        result.focus();
-    }
-}
+inputKeyboardFormula();
 
-function keydownBackspaceIndexUnder() {
-    if (event.code === "Backspace") {
-        removeLastFormula();
-        // if (mode == 'keyboard') {
-
-
-        // } else if (mode == 'editor') {
-        resultIU.value = resultIU.value.slice(0, resultIU.value.length - 1);
-        console.log("bs_index");
-        insertFormulaN.pop();
-        console.log(insertFormulaN);
-        keyboardInput = insertFormulaX + "_" + "{" + insertFormulaN.join("") + "}" + " ";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        editorText.insertAdjacentHTML("beforeend", textNode);
-    }
-}
-
-function keydownBackspaceIndexTop() {
-    if (event.code === "Backspace") {
-        removeLastFormula();
-        resultIndexTop.value = resultIndexTop.value.slice(0, resultIndexTop.value.length - 1);
-        console.log("bs_index");
-        insertFormulaIndexTopX = insertFormulaIndexTopX.slice(0, insertFormulaIndexTopX.length - 1);
-        console.log(insertFormulaIndexTopX);
-        keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        editorText.insertAdjacentHTML("beforeend", textNode);
-    }
-}
-
-function keydownBackspaceFractionA() {
-    if (event.code === "Backspace") {
-        console.log("bs_fracA");
-        resultA.value = resultA.value.slice(0, resultA.value.length - 1);
-        insertFormulaA.pop();
-        console.log(insertFormulaA);
-        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{b}";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        removeLastFormula();
-        editorText.insertAdjacentHTML("beforeend", textNode);
-    }
-}
-
-function keydownBackspaceFractionB() {
-    if (event.code === "Backspace") {
-        removeLastFormula();
-        resultB.value = resultB.value.slice(0, resultB.value.length - 1);
-        console.log("bs_fracB");
-        insertFormulaB.pop();
-        console.log(insertFormulaB);
-        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{" + insertFormulaB.join("") + "}";
-        console.log(keyboardInput);
-        textNode = katex.renderToString(keyboardInput) + " ";
-        console.log(textNode);
-        editorText.insertAdjacentHTML("beforeend", textNode);
-    }
-}
-
-function keydownEnterIndex() {
-    if (event.code === "Enter") {
-        inputMode = "base";
-        insertFormulaN = [];
-        result.focus();
-    }
-}
-
-function keydownEnterFractionA() {
-    if (event.code === "Enter") {
-        inputMode.push("fractionB");
-        mode = inputMode[inputMode.length - 1];
-        resultB.focus();
-        inputFractionB();
-    }
-}
-
-function keydownEnterFractionB() {
-    if (event.code === "Enter") {
-        inputMode = "base";
-        window.addEventListener("keydown", keydownBackspaceBase);
-        window.removeEventListener("keydown", keydownBackspaceFractionB);
-        window.removeEventListener("keydown", keydownEnterFractionB);
-        insertFormulaA = [];
-        insertFormulaB = [];
-        result.focus();
-    }
-}
-
-
-function inputKeyboardFormula(mode) {
-    for (let i = 0; i < keyboardKeys.length; i++) {
-        const keyboardKey = keyboardKeys[i];
-        let keyboardKeyText = keyboardKey.textContent;
-        const keyboardKeyClass = keyboardKey.querySelector("span").className;
-
-        keyboardKey.onclick = function() {
-            if (keyboardKeyText == "Tab" ||
-                keyboardKeyText == "Caps Lock" ||
-                keyboardKeyText == "Shift" ||
-                keyboardKeyText == "Backspace" ||
-                keyboardKeyText == "Space") {
-                console.log(keyboardKeyText);
-
-                if (keyboardKeyText == "Backspace") {
-                    switch (inputMode) {
-                    case "base":
-                        removeLastFormula();
-                        result.value = result.value.slice(0, result.value.length - 1);
-                        formula.pop();
-                        console.log(formula);
-                        result.focus();
-                        break;
-                    case "fractionA":
-                        removeLastFormula();
-                        resultA.value = resultA.value.slice(0, resultA.value.length - 1);
-                        console.log("bs_fracA");
-                        insertFormulaA.pop();
-                        console.log(insertFormulaA);
-                        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{b}";
-                        console.log(keyboardInput);
-                        textNode = katex.renderToString(keyboardInput) + " ";
-                        console.log(textNode);
-                        editorText.insertAdjacentHTML("beforeend", textNode);
-                        resultA.focus();
-                        break;
-                    case "fractionB":
-                        removeLastFormula();
-                        resultB.value = resultB.value.slice(0, resultB.value.length - 1);
-                        console.log("bs_fracB");
-                        insertFormulaB.pop();
-                        console.log(insertFormulaB);
-                        keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{" + insertFormulaB.join("") + "}";
-                        console.log(keyboardInput);
-                        textNode = katex.renderToString(keyboardInput) + " ";
-                        console.log(textNode);
-                        editorText.insertAdjacentHTML("beforeend", textNode);
-                        resultB.focus();
-                        break;
-                    case "IU":
-                        removeLastFormula();
-                        resultIU.value = resultIU.value.slice(0, resultIU.value.length - 1);
-                        console.log("bs_index");
-                        insertFormulaN.pop();
-                        console.log(insertFormulaN);
-                        keyboardInput = insertFormulaX + "_" + "{" + insertFormulaN.join("") + "}" + " ";
-                        console.log(keyboardInput);
-                        textNode = katex.renderToString(keyboardInput) + " ";
-                        console.log(textNode);
-                        editorText.insertAdjacentHTML("beforeend", textNode);
-                        resultIU.focus();
-                        break;
-                    case "indexTop":
-                        removeLastFormula();
-                        resultIndexTop.value = resultIndexTop.value.slice(0, resultIndexTop.value.length - 1);
-                        console.log("bs_index");
-                        insertFormulaIndexTopX = insertFormulaIndexTopX.slice(0, insertFormulaIndexTopX.length - 1);
-                        console.log(insertFormulaIndexTopX);
-                        keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
-                        console.log(keyboardInput);
-                        textNode = katex.renderToString(keyboardInput) + " ";
-                        console.log(textNode);
-                        editorText.insertAdjacentHTML("beforeend", textNode);
-                        resultIndexTop.focus();
-                        break;
-                    default:
-                            
-                        break;
-                    }
-                }
-
-                if (keyboardKeyText == "Tab") {
-                    result.value = result.value + "        ";
-                    editorText.textContent = editorText.textContent + "        ";
-                    result.focus();
-                }
-
-                if (keyboardKeyText == "Caps Lock") {
-
-                    if (capslock) {
-                        capslockKey.style.color = "#4e2f2f";
-                        capslock = false;
-                    } else {
-                        capslockKey.style.color = "#ffffff";
-                        capslock = true;
-                    }
-                }
-
-                if (keyboardKeyText == "Shift") {
-
-                    if (shift) {
-                        shiftKey.style.color = "#4e2f2f";
-                        shift = false;
-                    } else {
-                        shiftKey.style.color = "#ffffff";
-                        shift = true;
-                    }
-                }
-
-                if (keyboardKeyText == "Space") {
-                    editorText.insertAdjacentHTML("beforeend", " ");
-                    result.value = result.value + " ";
-                    result.focus();
-                }
-            } else {
-                if (capslock) {
-                    keyboardKeyText = keyboardKeyText.toUpperCase();
-                }
-
-                if (shift) {
-                    keyboardKeyText = shift.querySelector("sup").textContent;
-                }
-
-                console.log(keyboardKeyText);
-                console.log(keyboardKeyClass);
-
-                switch(keyboardKeyClass) {
-                case "derivative":
-                    keyboardKeyText = "'";
-                    break;
-                case "two-derivative":
-                    keyboardKeyText = "''";
-                    break;
-                case "sum":
-                    keyboardKeyText = "\\sum";
-                    break;
-                case "integral":
-                    keyboardKeyText = "\\int";
-                    break;
-                case "plus":
-                    keyboardKeyText = "+";
-                    break;
-                case "minus":
-                    keyboardKeyText = "-";
-                    break;
-                case "times":
-                    keyboardKeyText = "*";
-                    break;
-                case "division":
-                    keyboardKeyText = "/";
-                    break;
-                case "plus-minus":
-                    keyboardKeyText = "\\pm";
-                    break;
-                case "cosine":
-                    keyboardKeyText = "\\cos";
-                    break;
-                case "sine":
-                    keyboardKeyText = "\\sin";
-                    break;
-                case "tan":
-                    keyboardKeyText = "\\tg";
-                    break;
-                case "equally":
-                    keyboardKeyText = "=";
-                    break;
-                case "phi":
-                    keyboardKeyText = "\\phi";
-                    break;
-                case "rho":
-                    keyboardKeyText = "\\rho";
-                    break;
-                case "nu":
-                    keyboardKeyText = "\\nu";
-                    break;
-                case "alpha":
-                    keyboardKeyText = "\\alpha";
-                    break;
-                case "beta":
-                    keyboardKeyText = "\\beta";
-                    break;
-                case "gamma":
-                    keyboardKeyText = "\\gamma";
-                    break;
-                case "delta":
-                    keyboardKeyText = "\\delta";
-                    break;
-                case "eta":
-                    keyboardKeyText = "\\eta";
-                    break;
-                case "lambda":
-                    keyboardKeyText = "\\lambda";
-                    break;
-                case "mu":
-                    keyboardKeyText = "\\mu";
-                    break;
-                case "pi":
-                    keyboardKeyText = "\\pi";
-                    break;
-                case "sigma":
-                    keyboardKeyText = "\\sigma";
-                    break;
-                case "epsilon":
-                    keyboardKeyText = "\\epsilon";
-                    break;
-                case "varepsilon":
-                    keyboardKeyText = "\\varepsilon";
-                    break;
-                case "vartheta":
-                    keyboardKeyText = "\\vartheta";
-                    break;
-                case "thetasym":
-                    keyboardKeyText = "\\thetasym";
-                    break;
-                case "varphi":
-                    keyboardKeyText = "\\varphi";
-                    break;
-                case "varDelta":
-                    keyboardKeyText = "\\varDelta";
-                    break;
-                case "infinity":
-                    keyboardKeyText = "\\infty";
-                    break;
-                case "percent":
-                    keyboardKeyText = "\\%";
-                    break;
-                case "prod":
-                    keyboardKeyText = "\\prod";
-                    break;
-                case "sqrt":
-                    insertFormula = formula.join("");
-                    console.log(insertFormula);
-                    editorText.innerHTML = "";
-                    formula = [];
-                    keyboardKeyText = "\\sqrt{" + insertFormula + "}";
-                    break;
-                case "vector":
-                    console.log(mode);
-                    console.log(inputMode);
-                    switch (mode) {
-                    case "base":
-                        insertFormula = formula.pop();
-                        removeLastFormula();
-                        result.focus();
-                        break;
-                    case "fractionA":
-                        insertFormula = insertFormulaA.pop();
-                        resultA.focus();
-                        break;
-                    case "fractionB":
-                        insertFormula = insertFormulaB.pop();
-                        resultB.focus();
-                        break;
-                    }
-                    keyboardKeyText = "\\vec{"+ insertFormula +"}";
-                    break;
-                case "index-u":
-                    inputMode.push("IU");
-                    console.log(formula);
-                    switch (mode) {
-                    case "base":
-                        insertFormulaX = formula.pop();
-                        removeLastFormula();
-                        break;
-                    case "fractionA":
-                        insertFormulaX = insertFormulaA.pop();
-                        break;
-                    case "fractionB":
-                        insertFormulaX = insertFormulaB.pop();
-                        break;
-                    }
-                    resultIU.focus();
-                    console.log(insertFormulaX);
-                    inputFormuls(inputMode);
-                    console.log(formula);
-                    keyboardKeyText = insertFormulaX + "_n";
-                    break;
-                case "index-t":
-                    inputMode.push("indexTop");
-                    resultIndexTop.focus();
-                    console.log(formula);
-                    insertFormulaIndexTopE = formula.pop();
-                    console.log(insertFormulaIndexTopE);
-                    removeLastFormula();
-                    console.log(formula);
-                    inputFormuls(inputMode);
-                    console.log(formula);
-                    keyboardKeyText = insertFormulaIndexTopE + "^x";
-                    break;
-                case "fraction":
-                    inputMode.push("fractionA");
-                    mode = inputMode[inputMode.length - 1];
-                    resultA.focus();
-                    console.log(formula);
-                    inputFractionA();
-                    console.log(formula);
-                    keyboardKeyText = "\\frac{a}{b}";
-                    break;
-                default:
-                    console.log("it is goodness");
-                }
-
-
-                // if ( keyboardKeyClass == "index-u" || keyboardKeyClass == "index-t" || keyboardKeyClass == "fraction" ) {
-                //     console.log("LOL2");
-                // } else {
-                //     mode = "base";
-                // }
-                console.log(inputMode);
-                mode = inputMode[inputMode.length - 1];
-                switch (mode) {
-                case "base":
-                    formula.push(keyboardKeyText);
-                    console.log(formula);
-                    textNode = katex.renderToString(keyboardKeyText) + " ";
-                    console.log(textNode);
-                    editorText.insertAdjacentHTML("beforeend", textNode);
-                    console.log(keyboardKeyClass);
-                    if ( keyboardKeyClass == "index-u" || keyboardKeyClass == "index-t" || keyboardKeyClass == "fraction" ) {
-                        console.log("LOL");
-                    } else {
-                        result.focus();
-                    }
-                    break;
-                case "fractionA":
-                    insertFormulaA.push(keyboardKeyText);
-                    console.log(keyboardKeyText);
-                    console.log(insertFormulaA);
-                    keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{b}";
-
-                    console.log(keyboardInput);
-                    textNode = katex.renderToString(keyboardInput) + " ";
-                    console.log(textNode);
-                    removeLastFormula();
-                    formula.push(keyboardInput);
-                    editorText.insertAdjacentHTML("beforeend", textNode);
-                    if (inputMode == "fractionA") {
-                        resultA.focus();
-                    }
-                    break;
-                case "fractionB":
-                    insertFormulaB.push(keyboardKeyText);
-                    keyboardInput = "\\frac{" + insertFormulaA.join("") + "}" + "{" + insertFormulaB.join("") + "}";
-                    console.log(keyboardInput);
-                    textNode = katex.renderToString(keyboardInput) + " ";
-                    console.log(textNode);
-                    removeLastFormula();
-                    editorText.insertAdjacentHTML("beforeend", textNode);
-                    resultB.focus();
-                    break;
-                case "IU":
-                    insertFormulaN.push(keyboardKeyText);
-                    keyboardInput = insertFormulaX + "_" + "{" + insertFormulaN.join("") + "}" + " ";
-                    console.log(keyboardInput);
-                    textNode = katex.renderToString(keyboardInput) + " ";
-                    console.log(textNode);
-                    removeLastFormula();
-                    editorText.insertAdjacentHTML("beforeend", textNode);
-                    resultIU.focus();
-                    break;
-                case "indexTop":
-                    insertFormulaIndexTopX += keyboardKeyText;
-                    keyboardInput = insertFormulaIndexTopE + "^" + "{" + insertFormulaIndexTopX + "}" + " ";
-                    console.log(keyboardInput);
-                    textNode = katex.renderToString(keyboardInput) + " ";
-                    console.log(textNode);
-                    removeLastFormula();
-                    editorText.insertAdjacentHTML("beforeend", textNode);
-                    resultIndexTop.focus();
-                    break;
-                default:
-                    console.log("zz");
-                }
-                console.log(formula);
-            }
-        };
-      
-    }
-}
-
-inputKeyboardFormula(mode);
-
+renderMathInElement(document.body);
