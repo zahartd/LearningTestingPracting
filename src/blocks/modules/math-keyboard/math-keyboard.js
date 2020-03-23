@@ -1,6 +1,5 @@
 "use strict";
 
-
 import katex from "katex";
 import renderMathInElement from "katex/dist/contrib/auto-render.min.js";
 

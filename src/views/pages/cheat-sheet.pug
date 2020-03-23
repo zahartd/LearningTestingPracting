@@ -1,0 +1,36 @@
+extends ../layouts/default
+include ../helpers/mixins
+include ../helpers/variables
+
+block variables
+	- const title = "Cheat Sheet";
+
+block content
+	include ../../blocks/modules/header/header
+	main.page-main
+		.container
+			h1.main-title Формулы к теста
+			.cheet-sheets
+				include ../../blocks/modules/cheat-sheet/cheat-sheet
+				include ../../blocks/modules/cheat-sheet/physics/kinematics-linear
+				include ../../blocks/modules/cheat-sheet/physics/kinematics-curve
+				include ../../blocks/modules/cheat-sheet/physics/dynamics
+				include ../../blocks/modules/cheat-sheet/physics/statics
+				include ../../blocks/modules/cheat-sheet/physics/hydrostatics
+				include ../../blocks/modules/cheat-sheet/physics/vibration
+				include ../../blocks/modules/cheat-sheet/physics/molecular
+				include ../../blocks/modules/cheat-sheet/physics/thermodynamics
+				include ../../blocks/modules/cheat-sheet/physics/electrostatics
+				include ../../blocks/modules/cheat-sheet/physics/сonst-electric
+				include ../../blocks/modules/cheat-sheet/physics/magnetic-electric-field
+				include ../../blocks/modules/cheat-sheet/physics/electromagnetic-induction
+				include ../../blocks/modules/cheat-sheet/physics/electromagnetic-vibrations
+				include ../../blocks/modules/cheat-sheet/physics/optics
+				include ../../blocks/modules/cheat-sheet/physics/theory-rel-elems
+				include ../../blocks/modules/cheat-sheet/physics/quantum-atomic-nuclear
+	include ../../blocks/modules/footer/footer
+block scripts
+	script(defer='' src='https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js' integrity='sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz' crossorigin='anonymous')
+	script(defer='' src='https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js' integrity='sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI' crossorigin='anonymous' onload='renderMathInElement(document.body);')
+	script(src="js/main.js")
+	script(src="js/vendor.js")
