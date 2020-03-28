@@ -15,8 +15,9 @@ module.exports = {
     
   entry: {
     main: "./src/js/index.js",
-    cheat_sheet: "./src/js/cheat_sheet.js",
-    catalog: "./src/js/catalog.js"
+    cheat_sheet: "./src/js/import/pages/cheat_sheet.js",
+    catalog: "./src/js/import/pages/catalog.js",
+    quiz: "./src/js/import/pages/quiz.js"
   },
 
   output: {

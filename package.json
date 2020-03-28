@@ -72,6 +72,7 @@
     "katex": "^0.11.1",
     "latex.js": "^0.12.1",
     "mathjax": "^3.0.1",
+    "nodemon": "^2.0.2",
     "smart-grid": "^2.1.2"
   },
   "husky": {

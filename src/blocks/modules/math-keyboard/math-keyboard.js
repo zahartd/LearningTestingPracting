@@ -1,6 +1,6 @@
 "use strict";
 
-import katex from "katex";
+import katex from "katex/dist/katex.min.js";
 import renderMathInElement from "katex/dist/contrib/auto-render.min.js";
 
 let formula = [];
@@ -20,17 +20,122 @@ let insertFormulaIndexBottomN = [];
 let insertFormulaIndexBottomX = "";
 let insertFormulaIndexTopX = [];
 let insertFormulaIndexTopE = "";
-const keyboard = document.querySelector(".keyboard");
-const keyboardKeys = document.querySelectorAll(".keyboard .key");
+const editor = document.querySelector(".math-editor");
+const keyboard = document.querySelector(".math-keyboard");
+const keyboardKeys = document.querySelectorAll(".math-keyboard__key");
 const resultBase = document.querySelector("#resultBase");
 const resultFractionA = document.querySelector("#resultFractionA");
 const resultFractionB = document.querySelector("#resultFractionB");
 const resultIndexBottom = document.querySelector("#resultIndexBottom");
 const resultIndexTop = document.querySelector("#resultIndexTop");
+const resultTrueAnswers = document.querySelectorAll(".quiz__result-true-answer");
+const resultUserAnswers = document.querySelectorAll(".quiz__result-user-answer");
 const shiftKey = document.querySelector(".shift");
 const capslockKey = document.querySelector(".capslock");
 const editorText = document.querySelector(".math-editor__text");
+const quizButtons = document.querySelectorAll(".quiz-page__btn");
+const quizPages = document.querySelectorAll(".quiz-page");
+const quizPercent = document.querySelector(".progress-ring__text");
+const resultPercent = document.querySelector(".result-ring__text");
+const progressCircle = document.querySelector(".progress-ring__circle");
+const resultCircleTrue = document.querySelector(".result-ring__circle_true");
+const resultCircleWrong = document.querySelector(".result-ring__circle_wrong");
+const progressRadius = progressCircle.r.baseVal.value;
+const resultRadius = resultCircleTrue.r.baseVal.value;
+const resultCircumFerence = 2 * Math.PI * resultRadius;
+const progressCircumFerence = 2 * Math.PI * progressRadius;
+let a = 0;
+let answersArray = [];
+let quizTheme = "";
+let points = 0;
+let ans = "";
+let trueAnswer = {
+  "kinematics_linear": {
+    "0": {
+      "question": "Проекция перемещения на ось X",
+      "trueAnswer": "s_{x}=x-x_{0}",
+      "userAnswer": "",
+    },
+    "1": {
+      "question": "Скорость равномерного движения",
+      "trueAnswer": "\\vec{\\vartheta } =\\frac{\\vec{s} }{t}",
+      "userAnswer": "",
+    },
+    "2": {
+      "question": "Средняя скорость",
+      "trueAnswer": "\\vartheta _{ср}=\\frac{s}{t}",
+      "userAnswer": "",
+    },
+    "3": {
+      "question": "Уравнение равномерного прямолинейного движения",
+      "trueAnswer": "",
+      "userAnswer": "",
+    }
+  },
+  "kinematics_curve": {}
+};
+// let requestURL = "https://yadi.sk/d/9DHPKnpj801ZkQ";
+// let request = new XMLHttpRequest();
 
+
+// request.open('GET', requestURL);
+// request.responseType = 'json';
+// request.send();
+// request.onload = function() {
+//   let trueAnswer = request.response;
+// }
+// 
+
+
+function setProgress(percent, circle, circumference) {
+  const offset = circumference - percent / 100 * circumference;
+  circle.style.strokeDashoffset = offset;
+}
+
+
+function checkAnswers(quizTheme) {
+  for (let i = 0; i < answersArray.length; i++) {
+    ans = answersArray[i];
+    textNode = katex.renderToString(ans);
+    resultUserAnswers[i].insertAdjacentHTML("beforeend", textNode);
+    console.log(trueAnswer[quizTheme][i]["trueAnswer"]);
+    // keyboardInput = trueAnswer[quizTheme][i]["trueAnswer"].replace(/[\\\/]/g, "\\");
+    console.log(keyboardInput);
+    textNode = katex.renderToString(keyboardInput);
+    resultTrueAnswers[i].insertAdjacentHTML("beforeend", textNode);
+    if (ans === trueAnswer[quizTheme][i]["trueAnswer"]) {
+      trueAnswer[quizTheme][i]["userAnswer"] = ans;
+      points++;
+    }
+  }
+  console.log(points);
+  let percentTrue = Math.round(points / answersArray.length * 100);
+  let percentWrong = Math.round(100 - points / answersArray.length * 100);
+  console.log(percentTrue);
+  resultPercent.innerHTML = `${percentTrue} %`;
+  setProgress(percentTrue, resultCircleTrue, resultCircumFerence);
+  setProgress(percentWrong, resultCircleWrong, resultCircumFerence);
+}
+
+function nextQuestion() {
+  formula = [];
+  capslock = false;
+  shift = false;
+  editorTextChild = "";
+  removedEditorTextChild = "";
+  keyboardInput = "";
+  formulaPop = "";
+  textNode = "";
+  inputMode = [];
+  modeHead = "";
+  insertFormulaBase = [];
+  insertFormulaFractionA = [];
+  insertFormulaFractionB = [];
+  insertFormulaIndexBottomN = [];
+  insertFormulaIndexBottomX = "";
+  insertFormulaIndexTopX = [];
+  insertFormulaIndexTopE = "";
+}
 
 function removeLastFormula() {
   try {
@@ -835,6 +940,8 @@ function inputKeyboardFormula() {
   }
 }
 
+renderMathInElement(document.body);
+
 resultBase.onfocus = function () {
   // changeModeInEnter();
   inputKeyboardFormula();
@@ -853,11 +960,36 @@ modeHead = inputModeHead(1);
 
 resultBase.focus();
 
+for (let j = 0; j < quizButtons.length; j++) {
+  const quizButton = quizButtons[j];
+  quizTheme = quizButton.getAttribute("data-quiz-theme");
+
+  quizButton.onclick = function() {
+    answersArray.push(formula.join(""));
+    a += 20;
+    quizPercent.innerHTML = `${a} %`;
+    setProgress(a, progressCircle, progressCircumFerence);
+    window.scrollTo(0,0);
+    console.log(answersArray);
+    formula = [];
+    editorText.innerHTML = "";
+    nextQuestion();
+    if (quizButton.classList.contains("quiz-page__btn_check") == true) {
+      editor.classList.toggle("display-none");
+      keyboard.classList.toggle("display-none");
+      checkAnswers(quizTheme);
+      console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd");
+    }
+    setTimeout(() => {
+      quizPages[j].classList.toggle("display-none");
+      quizPages[j + 1].classList.toggle("display-none");
+    }, 400);
+  };
+}
+
 // function info() {
 //   console.log("inputMode: " + inputMode);
 //   console.log("formula: " + formula);
 // }
 
 // let timerId = setInterval(() => info(), 1000);
-
-renderMathInElement(document.body);

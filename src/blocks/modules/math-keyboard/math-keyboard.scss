@@ -1,8 +1,25 @@
-.keyboard {
+.math-keyboard {
     width: 704px;
     margin: 0 auto;
+
+    .backspace, .shift, .capslock {
+        width: 100px;
+    }
+
+    .capslock, .shift {
+        color: #4e2f2f;
+    }
+
+    .tab {
+        width: 80px;
+    }
+
+    .space {
+        width: 300px;
+        margin-left: 206px;
+    }
     
-    .key {
+    &__key {
         width: 40px;
         height: 40px;
         float: left;
@@ -29,23 +46,6 @@
             background-image: none;
             background-color: #f9de53;
         }
-    }
-
-    .backspace, .shift, .capslock {
-        width: 100px;
-    }
-
-    .capslock, .shift {
-        color: #4e2f2f;
-    }
-
-    .tab {
-        width: 80px;
-    }
-
-    .space {
-        width: 300px;
-        margin-left: 206px;
     }
     &__row {
         width: 100%;

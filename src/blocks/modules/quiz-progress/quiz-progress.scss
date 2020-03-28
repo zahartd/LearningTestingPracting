@@ -1,12 +1,12 @@
 .quiz__progress {
     position: absolute;
-    top: 0;
-    left: 90%;
+    top: -15px;
+    left: 87%;
 }
 
 .progress-ring__circle {
     transform: rotate(-90deg);
-    transition: stroke-dashoffset .3;
+    transition: stroke-dashoffset .5s;
     transform-origin: center;
 }
 
@@ -16,7 +16,27 @@
 
     position: absolute;
     top: calc(50% - 10px);
-    left: calc(50% - 12px);
+    left: calc(50% - 24px);
 
-    color: #ad62aa;
+    color: #45de2c;
+}
+
+.quiz__result {
+    position: absolute;
+    left: calc(50% - 50px);
+}
+
+.result-ring__circle {
+    transform: rotate(-90deg);
+    transition: stroke-dashoffset .5s;
+    transform-origin: center;
+}
+
+.result-ring__text {
+    font-size: 18px;
+    font-weight: 700;
+    position: absolute;
+    top: calc(50% - 48px);
+    left: calc(50% - 63px);
+    color: #45de2c;
 }

@@ -1,14 +1,16 @@
-const circle = document.querySelector(".progress-ring__circle");
-// const quizPercent = document.querySelector('.progress-ring__text');
-const radius = circle.r.baseVal.value;
-const circumference = 2 * Math.PI * radius;
+const progressCircle = document.querySelector(".progress-ring__circle");
+const resultCircleTrue = document.querySelector(".result-ring__circle_true");
+const resultCircleWrong = document.querySelector(".result-ring__circle_wrong");
+const progressRadius = progressCircle.r.baseVal.value;
+const resultRadius = resultCircleTrue.r.baseVal.value;
+const resultCircumFerence = 2 * Math.PI * resultRadius;
+const progressCircumFerence = 2 * Math.PI * progressRadius;
 
-circle.style.strokeDasharray = `${circumference} ${circumference}`;
-circle.style.strokeDashoffset = circumference;
+progressCircle.style.strokeDasharray = `${progressCircumFerence} ${progressCircumFerence}`;
+progressCircle.style.strokeDashoffset = progressCircumFerence;
 
-function setProgress(percent) {
-    const offset = circumference - percent / 100 * circumference;
-    circle.style.strokeDashoffset = offset;
-}
+resultCircleTrue.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
+resultCircleTrue.style.strokeDashoffset = resultCircumFerence;
 
-setProgress(10);
+// resultCircleWrong.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
+resultCircleWrong.style.strokeDashoffset = resultCircumFerence;
