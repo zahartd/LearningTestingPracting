@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 333.75589 316.82825" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="b" x1="296.78" x2="330.95" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ff2a00" offset="0"/>
+   <stop stop-color="#ffc65e" stop-opacity=".48214" offset="1"/>
+  </linearGradient>
+  <linearGradient id="a" x1="296.78" x2="330.95" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#08f38d" offset="0"/>
+   <stop stop-color="#9fff36" stop-opacity=".48235" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-184.75 -200.72)">
+  <text x="334.87238" y="371.67392" fill="#800080" font-family="Bitstream Vera Sans" font-size="40">
+   <tspan x="334.87238" y="371.67392">+</tspan>
+  </text>
+  <path transform="translate(37.764 -243.56)" d="m330.95 602.7a17.087 17.087 0 1 1 -34.175 0 17.087 17.087 0 1 1 34.175 0z" fill="url(#b)"/>
+  <path transform="matrix(-1.0305 -.74866 -.89666 .54124 1494.2 80.644)" d="m445.71 929.51a145.71 74.286 0 1 1 -291.43 0 145.71 74.286 0 1 1 291.43 0z" fill="none" stroke="#58d258" stroke-dasharray="1.26283033, 2.52566066" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="1.2628"/>
+  <text x="249.30075" y="256.48083" font-family="Bitstream Vera Sans" font-size="40">
+   <tspan x="249.30075" y="256.48083">-</tspan>
+  </text>
+  <path transform="matrix(.57895 0 0 .57895 74.806 -103.41)" d="m330.95 602.7a17.087 17.087 0 1 1 -34.175 0 17.087 17.087 0 1 1 34.175 0z" fill="url(#a)"/>
+  <path transform="matrix(1.0028 0 0 .64128 45.06 69.043)" d="m471.43 452.36a165.71 94.286 0 1 1 -331.43 0 165.71 94.286 0 1 1 331.43 0z" fill="none" stroke="#58d258" stroke-dasharray="1.74580921, 3.49161843" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="1.7458"/>
+  <path transform="matrix(.82871 .55292 -.42022 1.0904 221.54 -222.42)" d="m411.43 360.93a71.429 140 0 1 1 -142.86 0 71.429 140 0 1 1 142.86 0z" fill="none" stroke="#58d258" stroke-dasharray="1.31353927, 2.62707855" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="1.3135"/>
+  <text x="264.58804" y="485.88074" font-family="Bitstream Vera Sans" font-size="40">
+   <tspan x="264.58804" y="485.88074">-</tspan>
+  </text>
+  <path transform="matrix(.57895 0 0 .57895 90.093 125.99)" d="m330.95 602.7a17.087 17.087 0 1 1 -34.175 0 17.087 17.087 0 1 1 34.175 0z" fill="url(#a)"/>
+  <text x="449.15814" y="416.97845" font-family="Bitstream Vera Sans" font-size="40">
+   <tspan x="449.15814" y="416.97845">-</tspan>
+  </text>
+  <path transform="matrix(.57895 0 0 .57895 274.66 57.092)" d="m330.95 602.7a17.087 17.087 0 1 1 -34.175 0 17.087 17.087 0 1 1 34.175 0z" fill="url(#a)"/>
+ </g>
+</svg>

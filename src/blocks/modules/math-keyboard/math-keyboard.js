@@ -87,6 +87,16 @@ let trueAnswer = {
 // 
 
 
+progressCircle.style.strokeDasharray = `${progressCircumFerence} ${progressCircumFerence}`;
+progressCircle.style.strokeDashoffset = progressCircumFerence;
+
+resultCircleTrue.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
+resultCircleTrue.style.strokeDashoffset = resultCircumFerence;
+
+// resultCircleWrong.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
+resultCircleWrong.style.strokeDashoffset = resultCircumFerence;
+
+
 function setProgress(percent, circle, circumference) {
   const offset = circumference - percent / 100 * circumference;
   circle.style.strokeDashoffset = offset;

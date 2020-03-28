@@ -1,1 +1,1 @@
-import "%modules%/preview-tests/preview-tests";
+import "./import/pages/catalog";

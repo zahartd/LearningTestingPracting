@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 744.09 1052.4" xmlns="http://www.w3.org/2000/svg">
+ <rect x="33.563" y="342.15" width="672.87" height="239.64" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0339"/>
+ <rect x="33.563" y="102.44" width="672.87" height="239.64" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0339"/>
+ <g transform="matrix(2.517 0 0 2.517 -134.32 -1070.6)" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="197.06" y="434.33" width="19.32" height="58.497" fill="#fff" stroke="#fff" stroke-width="2.0778"/>
+  <path d="m196.87 434.85v58.093" fill="none" stroke="#000" stroke-width="2"/>
+  <path d="m196.87 434.85v58.093" fill="none" stroke="#000" stroke-width="2"/>
+  <path d="m216.87 434.85v58.093" fill="none" stroke="#000" stroke-width="2"/>
+ </g>
+ <rect x="169.92" y="296.2" width="187.64" height="80.416" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0339"/>
+ <rect x="421.62" y="296.2" width="187.64" height="80.416" fill="#808080" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0339"/>
+ <g transform="matrix(2.517 0 0 2.517 -133.84 -1067.9)">
+  <path transform="translate(4.9446 -4.9446)" d="m219.84 659.84c0 10.083-8.1739 18.257-18.257 18.257-10.083 0-18.257-8.1739-18.257-18.257 0-10.083 8.1739-18.257 18.257-18.257 10.083 0 18.257 8.1739 18.257 18.257z" fill="#fff" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <text x="191.96953" y="660.17053" fill="#000000" font-family="Bitstream Vera Sans" font-size="10px">
+   <tspan x="191.96953" y="660.17053" font-size="16px" font-weight="bold">+</tspan>
+  </text>
+  <text x="210.77382" y="651.99072" fill="#000000" font-family="Bitstream Vera Sans" font-size="10px">
+   <tspan x="210.77382" y="651.99072" font-size="16px" font-weight="bold">_</tspan>
+  </text>
+ </g>
+ <text x="428.59402" y="84.721611" fill="#000000" font-family="Arial" font-size="45.305px">
+  <tspan x="428.59402" y="84.721611">C</tspan>
+ </text>
+ <text x="242.87158" y="280.01733" fill="#000000" font-family="Arial" font-size="45.305px">
+  <tspan x="242.87158" y="280.01733">R</tspan>
+ </text>
+ <text x="501.35126" y="278.10257" fill="#000000" font-family="Arial" font-size="45.305px">
+  <tspan x="501.35126" y="278.10257">L</tspan>
+ </text>
+ <g transform="matrix(2.517 0 0 2.517 -134.32 -1070.6)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m158.99 646.14h-34.993l9.1285-7.6071"/>
+  <path d="m158.99 646.54h-34.993l9.1285 7.6071"/>
+ </g>
+ <g transform="matrix(0 2.517 -2.517 0 1690.2 -86.445)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m158.99 646.14h-34.993l9.1285-7.6071"/>
+  <path d="m158.99 646.54h-34.993l9.1285 7.6071"/>
+ </g>
+ <g transform="matrix(0 -2.517 -2.517 0 1690.2 776.83)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+  <path d="m158.99 646.14h-34.993l9.1285-7.6071"/>
+  <path d="m158.99 646.54h-34.993l9.1285 7.6071"/>
+ </g>
+ <text x="225.93056" y="543.94293" fill="#000000" font-family="Arial" font-size="45.305px">
+  <tspan x="225.93056" y="543.94293">I</tspan>
+ </text>
+ <g transform="matrix(2.517 0 0 2.517 -134.32 -1070.6)" fill="#000000" font-family="Arial">
+  <text x="89.802559" y="544.65948" font-size="18px">
+   <tspan x="89.802559" y="544.65948">I</tspan>
+  </text>
+  <text x="94.398758" y="547.1344" font-size="14px">
+   <tspan x="94.398758" y="547.1344" font-size="10px" font-weight="bold">C</tspan>
+  </text>
+ </g>
+ <g transform="matrix(2.517 0 0 2.517 -134.32 -1070.6)" fill="#000000" font-family="Arial">
+  <text x="87.681244" y="599.10675" font-size="18px">
+   <tspan x="87.681244" y="599.10675">I</tspan>
+  </text>
+  <text x="92.630989" y="602.64227" font-size="14px">
+   <tspan x="92.630989" y="602.64227" font-size="10px" font-weight="bold">L</tspan>
+  </text>
+ </g>
+ <g transform="matrix(2.517 0 0 2.517 218.98 -1031)" fill="#000000">
+  <text x="58.649677" y="616.13672" font-family="Arial" font-size="18px">
+   <tspan x="58.649677" y="616.13672">V</tspan>
+  </text>
+  <text x="79.928581" y="606.66309" font-family="Bitstream Vera Sans" font-size="10px">
+   <tspan x="79.928581" y="606.66309" font-size="16px" font-weight="bold">_</tspan>
+  </text>
+  <text x="37.582592" y="614.70996" font-family="Bitstream Vera Sans" font-size="10px">
+   <tspan x="37.582592" y="614.70996" font-size="16px" font-weight="bold">+</tspan>
+  </text>
+ </g>
+</svg>
