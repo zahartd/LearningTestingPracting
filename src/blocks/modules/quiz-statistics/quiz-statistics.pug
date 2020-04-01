@@ -1,0 +1,17 @@
+.quiz-statistics
+	svg.quiz-statistics__chart(width='500' height='500' viewbox='0 0 50 50')
+		circle.quiz-statistics__unit.quiz-statistics__unit_true(r='15.9' cx='25%' cy='25%')
+		circle.quiz-statistics__unit.quiz-statistics__unit_wrong(r='15.9' cx='25%' cy='25%')
+		circle.quiz-statistics__unit.quiz-statistics__unit_null(r='15.9' cx='25%' cy='25%')
+	.quiz-statistics__legend
+		h3.quiz-statistics__title Статистика ответов:
+		ul.quiz-statistics__caption-list
+			li.quiz-statistics__caption-item.quiz-statistics__caption-item_true Правильные ответы
+			li.quiz-statistics__caption-item.quiz-statistics__caption-item_wrong Неправильные ответы
+			li.quiz-statistics__caption-item.quiz-statistics__caption-item_null Нет ответа
+		ul.quiz__statistics-percent-list
+			li.quiz-statistics__percent-item.quiz-statistics__percent-item_true - %
+			li.quiz-statistics__percent-item.quiz-statistics__percent-item_wrong - %
+			li.quiz-statistics__percent-item.quiz-statistics__percent-item_null - %
+		p.quiz-statistics__total Всего:
+			span

@@ -1,5 +1,5 @@
 mixin preview-test(title, descr, href)
-	li.preview-test__item
+	li.preview-test__item()
 		a(href=href+".html")
 			.preview-test__item-wrapper
 				.preview-test__item-image
@@ -20,7 +20,7 @@ mixin main-menu(custom_class)
 			li.main-menu__site-nav.main-menu__item
 				a(href="catalog.html") Каталог тестов
 			li.main-menu__site-nav.main-menu__item
-				a(href="index.html") Инструкция
+				a(href="instruction.html") Инструкция
 			li.main-menu__site-nav.main-menu__item
 				a(href="cheat_sheet.html") Формулы
 			li.main-menu__site-nav.main-menu__item
@@ -29,4 +29,4 @@ mixin main-menu(custom_class)
 mixin main-logo(custom_class)
 	a(class='main-logo ' + custom_class href="index.html")
 		picture
-			img(src="img/svg/logo.svg" alt="Логотип LearningTestingProject Тесты по физике")
+			img(src="img/svg/logo.svg" alt="Логотип LearningTestingProject - Тесты по физике")

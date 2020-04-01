@@ -11,37 +11,11 @@ block content
 		.container
 			.quiz
 				include ../../blocks/modules/quiz-progress/quiz-progress
-				.quiz-page
-					h2.quiz-page__title Проекция перемещения на ось X
-					button.quiz-page__btn Далее
-				.quiz-page.display-none
-					h2.quiz-page__title Скорость равномерного прямолинейного движения
-					button.quiz-page__btn Далее
-				.quiz-page.display-none
-					h2.quiz-page__title Средняя скорость
-					button.quiz-page__btn.quiz-page__btn_check(data-quiz-theme="kinematics_linear") Далее
-				.quiz-page.quiz-page_final.display-none
-					h2.quiz-page__title Ваш результат
-					.quiz__result
-						svg.result-ring(height='300' width='300')
-							circle.result-ring__circle.result-ring__circle_wrong(cx='50' cy='50' fill='transparent' r='44' stroke='#DE1717' stroke-width='10')
-							circle.result-ring__circle.result-ring__circle_true(cx='50' cy='50' fill='transparent' r='44' stroke='#45DE2C' stroke-width='10')
-							span.result-ring__text 0&nbsp;%
-						.quiz__result-answer
-								span.quiz__result-true-answer
-								span.quiz__result-user-answer
-						.quiz__result-answer
-								span.quiz__result-true-answer
-								span.quiz__result-user-answer
-						.quiz__result-answer
-								span.quiz__result-true-answer
-								span.quiz__result-user-answer
-								
-
-
+				.quiz-pages(data-quiz-theme="kinematics_linear")
 				include ../../blocks/modules/math-editor/math-editor
 				include ../../blocks/modules/math-keyboard/math-keyboard
 	include ../../blocks/modules/footer/footer
 block scripts
+	script(src="js/vendor.js" defer)
 	script(src="js/quiz.js")
-	script(src="js/vendor.js")
+	

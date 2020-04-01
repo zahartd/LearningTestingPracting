@@ -3,7 +3,7 @@ include ../helpers/mixins
 include ../helpers/variables
 
 block variables
-	- const title = "Test";
+	- const title = "Quiz";
 
 block content
 	include ../../blocks/modules/header/header
@@ -28,5 +28,5 @@ block content
 					include ../../blocks/modules/math-keyboard/math-keyboard
 	include ../../blocks/modules/footer/footer
 block scripts
+	script(src="js/vendor.js" defer)
 	script(src="js/quiz.js")
-	script(src="js/vendor.js")

@@ -1,5 +1,6 @@
 .page-header {
-	background-color: #4a47a9;
+	background-color: $main-color;
+	color: $darken-text;
 
 	&__wrapper {
 		@include row-flex();
@@ -14,6 +15,9 @@
 	&__menu {
 		@include col();
 		@include size(7);
+		a {
+			color: $darken-text;
+		}
 	}
 
 }

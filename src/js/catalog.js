@@ -1,1 +1,3 @@
-import "./import/pages/catalog";
+"use strict";
+
+import "%modules%/preview-tests/preview-tests";

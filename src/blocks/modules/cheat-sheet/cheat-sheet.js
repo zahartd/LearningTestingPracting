@@ -1,11 +1,10 @@
 "use strict";
 
+
 const accordionTriggers = document.querySelectorAll(".accordionTrigger");
 const accordionThead = document.querySelectorAll(".cheat-sheet__thead");
 const accordionTBody = document.querySelectorAll(".cheat-sheet__tbody");
-console.log(accordionTriggers);
-console.log(accordionThead);
-console.log(accordionTBody);
+
 
 for (let i = 0; i < accordionTriggers.length; i++) {
   const accordionTrigger = accordionTriggers[i];

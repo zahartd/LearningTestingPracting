@@ -1,7 +1,8 @@
-const editor = document.querySelector(".math-editor");
+export const editorText = document.querySelector(".math-editor__text");
+export const mathEditor = document.querySelector(".math-editor");
 const result = document.querySelector("#resultBase");
 
 
-editor.onclick = function() {
+mathEditor.onclick = function() {
   result.focus();
 };

@@ -1,11 +1,9 @@
 {
   "name": "learning-testing-practing",
-  "description": "learning-testing-practing priject",
+  "description": "project with physics test of formuls: learningTestingPracting project",
   "author": "Turulin Zakhar",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zaharakatd22/LearningTestingPracting.git"
-  },
+  "private": true,
+  "repository": "git+https://github.com/Zaharakatd22/LearningTestingPracting.git",
   "license": "MIT",
   "scripts": {
     "dev": "gulp",

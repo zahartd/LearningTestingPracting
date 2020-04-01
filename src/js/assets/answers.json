@@ -1,0 +1,55 @@
+{
+   "kinematics_linear":{
+      "0":{
+         "question":"Проекция перемещения на ось X",
+         "trueAnswer":"s_{x}=x-x_{0}",
+         "userAnswer":""
+      },
+      "1":{
+         "question":"Скорость равномерного движения",
+         "trueAnswer":"\\vec{\\vartheta}=\\frac{\\vec{s}}{t}",
+         "userAnswer":""
+      },
+      "2":{
+         "question":"Средняя скорость",
+         "trueAnswer":"\\vartheta_{ср}\\frac{s}{t}",
+         "userAnswer":""
+      },
+      "3":{
+         "question":"Уравнение равномерного прямолинейного движения",
+         "trueAnswer":"x=x_{0}+\\vartheta_{x}t",
+         "userAnswer":""
+      },
+      "4":{
+         "question":"Ускорение при равноускоренном движении",
+         "trueAnswer":"\\vec{a}\\frac{\\vec{\\vartheta}-\\vec{\\vartheta}_{0}}{t}",
+         "userAnswer":""
+      },
+      "5":{
+         "question":"Скорость при равноускоренном движении",
+         "trueAnswer":"\\vec{\\vartheta}=\\vec{\\vartheta}_{0}+\\svec{a}t",
+         "userAnswer":""
+      },
+      "6":{
+         "question":"Перемещение при равноускоренном движении",
+         "trueAnswer":"\\vec{s}\\frac{\\vec{\\vartheta}+\\vec{\\vartheta}_{0}}{2}t",
+         "userAnswer":""
+      },
+      "7":{
+         "question":"Зависимость перемещения при равноускоренном движении от времени",
+         "trueAnswer":"\\vec{s}=\\vec{\\vartheta}_{0}t+\\frac{\\vec{a}t^{2}}{2}",
+         "userAnswer":""
+      },
+      "8":{
+         "question":"Проекция перемещения при равноускоренном движении без времени",
+         "trueAnswer":"\\frac{\\vartheta_{x}^{2}-\\vartheta_{0x}^{2}}{2a_{x}}",
+         "userAnswer":""
+      },
+      "9":{
+         "question":"Уравнение равномерного движения",
+         "trueAnswer":"x=x_{0}+\\vartheta_{0}t+\\frac{at^{2}}{2}",
+         "userAnswer":""
+      },
+      "length": "10"
+   }
+}

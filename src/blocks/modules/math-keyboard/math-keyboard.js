@@ -1,133 +1,38 @@
 "use strict";
 
-import katex from "katex/dist/katex.min.js";
-import renderMathInElement from "katex/dist/contrib/auto-render.min.js";
+import katex from "%node_modules%/katex/dist/katex.js";
 
-let formula = [];
-let capslock = false;
-let shift = false;
-let editorTextChild = "";
-let removedEditorTextChild = "";
-let keyboardInput = "";
-let formulaPop = "";
-let textNode = "";
-let inputMode = [];
-let modeHead = "";
-let insertFormulaBase = [];
-let insertFormulaFractionA = [];
-let insertFormulaFractionB = [];
-let insertFormulaIndexBottomN = [];
-let insertFormulaIndexBottomX = "";
-let insertFormulaIndexTopX = [];
-let insertFormulaIndexTopE = "";
-const editor = document.querySelector(".math-editor");
-const keyboard = document.querySelector(".math-keyboard");
-const keyboardKeys = document.querySelectorAll(".math-keyboard__key");
-const resultBase = document.querySelector("#resultBase");
-const resultFractionA = document.querySelector("#resultFractionA");
-const resultFractionB = document.querySelector("#resultFractionB");
-const resultIndexBottom = document.querySelector("#resultIndexBottom");
-const resultIndexTop = document.querySelector("#resultIndexTop");
-const resultTrueAnswers = document.querySelectorAll(".quiz__result-true-answer");
-const resultUserAnswers = document.querySelectorAll(".quiz__result-user-answer");
-const shiftKey = document.querySelector(".shift");
-const capslockKey = document.querySelector(".capslock");
-const editorText = document.querySelector(".math-editor__text");
-const quizButtons = document.querySelectorAll(".quiz-page__btn");
-const quizPages = document.querySelectorAll(".quiz-page");
-const quizPercent = document.querySelector(".progress-ring__text");
-const resultPercent = document.querySelector(".result-ring__text");
-const progressCircle = document.querySelector(".progress-ring__circle");
-const resultCircleTrue = document.querySelector(".result-ring__circle_true");
-const resultCircleWrong = document.querySelector(".result-ring__circle_wrong");
-const progressRadius = progressCircle.r.baseVal.value;
-const resultRadius = resultCircleTrue.r.baseVal.value;
-const resultCircumFerence = 2 * Math.PI * resultRadius;
-const progressCircumFerence = 2 * Math.PI * progressRadius;
-let a = 0;
-let answersArray = [];
-let quizTheme = "";
-let points = 0;
-let ans = "";
-let trueAnswer = {
-  "kinematics_linear": {
-    "0": {
-      "question": "Проекция перемещения на ось X",
-      "trueAnswer": "s_{x}=x-x_{0}",
-      "userAnswer": "",
-    },
-    "1": {
-      "question": "Скорость равномерного движения",
-      "trueAnswer": "\\vec{\\vartheta } =\\frac{\\vec{s} }{t}",
-      "userAnswer": "",
-    },
-    "2": {
-      "question": "Средняя скорость",
-      "trueAnswer": "\\vartheta _{ср}=\\frac{s}{t}",
-      "userAnswer": "",
-    },
-    "3": {
-      "question": "Уравнение равномерного прямолинейного движения",
-      "trueAnswer": "",
-      "userAnswer": "",
-    }
-  },
-  "kinematics_curve": {}
-};
-// let requestURL = "https://yadi.sk/d/9DHPKnpj801ZkQ";
-// let request = new XMLHttpRequest();
+export let formula = [];
+export let capslock = false;
+export let shift = false;
+export let editorTextChild = "";
+export let removedEditorTextChild = "";
+export let keyboardInput = "";
+export let formulaPop = "";
+export let textNode = "";
+export let inputMode = [];
+export let modeHead = "";
+export let insertFormulaBase = [];
+export let insertFormulaFractionA = [];
+export let insertFormulaFractionB = [];
+export let insertFormulaIndexBottomN = [];
+export let insertFormulaIndexBottomX = "";
+export let insertFormulaIndexTopX = [];
+export let insertFormulaIndexTopE = "";
+export const mathEditor = document.querySelector(".math-editor");
+export const mathKeyboard = document.querySelector(".math-keyboard");
+export const keyboardKeys = document.querySelectorAll(".math-keyboard__key");
+export const resultBase = document.querySelector("#resultBase");
+export const resultFractionA = document.querySelector("#resultFractionA");
+export const resultFractionB = document.querySelector("#resultFractionB");
+export const resultIndexBottom = document.querySelector("#resultIndexBottom");
+export const resultIndexTop = document.querySelector("#resultIndexTop");
+export const shiftKey = document.querySelector(".shift");
+export const capslockKey = document.querySelector(".capslock");
+export const editorText = document.querySelector(".math-editor__text");
 
 
-// request.open('GET', requestURL);
-// request.responseType = 'json';
-// request.send();
-// request.onload = function() {
-//   let trueAnswer = request.response;
-// }
-// 
-
-
-progressCircle.style.strokeDasharray = `${progressCircumFerence} ${progressCircumFerence}`;
-progressCircle.style.strokeDashoffset = progressCircumFerence;
-
-resultCircleTrue.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
-resultCircleTrue.style.strokeDashoffset = resultCircumFerence;
-
-// resultCircleWrong.style.strokeDasharray = `${resultCircumFerence} ${resultCircumFerence}`;
-resultCircleWrong.style.strokeDashoffset = resultCircumFerence;
-
-
-function setProgress(percent, circle, circumference) {
-  const offset = circumference - percent / 100 * circumference;
-  circle.style.strokeDashoffset = offset;
-}
-
-
-function checkAnswers(quizTheme) {
-  for (let i = 0; i < answersArray.length; i++) {
-    ans = answersArray[i];
-    textNode = katex.renderToString(ans);
-    resultUserAnswers[i].insertAdjacentHTML("beforeend", textNode);
-    console.log(trueAnswer[quizTheme][i]["trueAnswer"]);
-    // keyboardInput = trueAnswer[quizTheme][i]["trueAnswer"].replace(/[\\\/]/g, "\\");
-    console.log(keyboardInput);
-    textNode = katex.renderToString(keyboardInput);
-    resultTrueAnswers[i].insertAdjacentHTML("beforeend", textNode);
-    if (ans === trueAnswer[quizTheme][i]["trueAnswer"]) {
-      trueAnswer[quizTheme][i]["userAnswer"] = ans;
-      points++;
-    }
-  }
-  console.log(points);
-  let percentTrue = Math.round(points / answersArray.length * 100);
-  let percentWrong = Math.round(100 - points / answersArray.length * 100);
-  console.log(percentTrue);
-  resultPercent.innerHTML = `${percentTrue} %`;
-  setProgress(percentTrue, resultCircleTrue, resultCircumFerence);
-  setProgress(percentWrong, resultCircleWrong, resultCircumFerence);
-}
-
-function nextQuestion() {
+export function nextQuestion() {
   formula = [];
   capslock = false;
   shift = false;
@@ -236,7 +141,7 @@ function inputBase() {
   window.removeEventListener("keydown", keydownBackspaceFractionB);
   window.removeEventListener("keydown", keydownEnterFractionB);
   // console.log("inputMode: " + inputMode);
-  keyboard.onclick = function () {
+  mathKeyboard.onclick = function () {
     inputKeyboardFormula();
   };
   if (formula.length == 0) {
@@ -281,7 +186,7 @@ function inputFractionA() {
   window.removeEventListener("keydown", keydownEnterIndexTop);
   window.addEventListener("keydown", keydownBackspaceFractionA);
   window.addEventListener("keydown", keydownEnterFractionA);
-  keyboard.onclick = function () {
+  mathKeyboard.onclick = function () {
     if (inputModeHead(1) != "fractionA") {
       inputMode.push("fractionA");
     }
@@ -342,7 +247,7 @@ function inputFractionB() {
   window.addEventListener("keydown", keydownBackspaceFractionB);
   window.addEventListener("keydown", keydownEnterFractionB);
   // console.log("inputMode: " + inputMode);
-  keyboard.onclick = function () {
+  mathKeyboard.onclick = function () {
     if (inputModeHead(1) != "fractionB") {
       inputMode.push("fractionB");
     }
@@ -405,7 +310,7 @@ function inputIndexBottom() {
   window.addEventListener("keydown", keydownBackspaceIndexBottom);
   window.addEventListener("keydown", keydownEnterIndexBottom);
   // console.log("inputMode: " + inputMode);
-  keyboard.onclick = function () {
+  mathKeyboard.onclick = function () {
     if (inputModeHead(1) != "indexBottom") {
       inputMode.push("indexBottom");
     }
@@ -472,7 +377,7 @@ function inputIndexTop() {
   window.addEventListener("keydown", keydownBackspaceIndexTop);
   window.addEventListener("keydown", keydownEnterIndexTop);
   // console.log("inputMode: " + inputMode);
-  keyboard.onclick = function () {
+  mathKeyboard.onclick = function () {
     if (inputModeHead(1) != "indexTop") {
       inputMode.push("indexTop");
     }
@@ -660,126 +565,126 @@ function inputKeyboardFormula() {
 
         switch (keyboardKeyClass) {
         case "derivative":
-          keyboardKeyText = "' ";
+          keyboardKeyText = "'";
           break;
         case "two-derivative":
-          keyboardKeyText = "'' ";
+          keyboardKeyText = "''";
           break;
         case "sum":
-          keyboardKeyText = "\\displaystyle\\sum_{i=1}^n ";
+          keyboardKeyText = "\\displaystyle\\sum_{i=1}^n";
           break;
         case "integral":
-          keyboardKeyText = "\\int ";
+          keyboardKeyText = "\\int";
           break;
         case "plus":
-          keyboardKeyText = "+ ";
+          keyboardKeyText = "+";
           break;
         case "minus":
-          keyboardKeyText = "- ";
+          keyboardKeyText = "-";
           break;
         case "times":
-          keyboardKeyText = "* ";
+          keyboardKeyText = "*";
           break;
         case "division":
-          keyboardKeyText = "/ ";
+          keyboardKeyText = "/";
           break;
         case "plus-minus":
-          keyboardKeyText = "\\pm ";
+          keyboardKeyText = "\\pm";
           break;
         case "cosine":
-          keyboardKeyText = "\\cos ";
+          keyboardKeyText = "\\cos";
           break;
         case "sine":
-          keyboardKeyText = "\\sin ";
+          keyboardKeyText = "\\sin";
           break;
         case "tan":
-          keyboardKeyText = "\\tg ";
+          keyboardKeyText = "\\tg";
           break;
         case "equally":
-          keyboardKeyText = "= ";
+          keyboardKeyText = "=";
           break;
         case "phi":
-          keyboardKeyText = "\\phi ";
+          keyboardKeyText = "\\phi";
           break;
         case "rho":
-          keyboardKeyText = "\\rho ";
+          keyboardKeyText = "\\rho";
           break;
         case "nu":
-          keyboardKeyText = "\\nu ";
+          keyboardKeyText = "\\nu";
           break;
         case "alpha":
-          keyboardKeyText = "\\alpha ";
+          keyboardKeyText = "\\alpha";
           break;
         case "beta":
-          keyboardKeyText = "\\beta ";
+          keyboardKeyText = "\\beta";
           break;
         case "gamma":
-          keyboardKeyText = "\\gamma ";
+          keyboardKeyText = "\\gamma";
           break;
         case "delta":
-          keyboardKeyText = "\\delta ";
+          keyboardKeyText = "\\delta";
           break;
         case "eta":
-          keyboardKeyText = "\\eta ";
+          keyboardKeyText = "\\eta";
           break;
         case "lambda":
-          keyboardKeyText = "\\lambda ";
+          keyboardKeyText = "\\lambda";
           break;
         case "mu":
-          keyboardKeyText = "\\mu ";
+          keyboardKeyText = "\\mu";
           break;
         case "pi":
-          keyboardKeyText = "\\pi ";
+          keyboardKeyText = "\\pi";
           break;
         case "sigma":
-          keyboardKeyText = "\\sigma ";
+          keyboardKeyText = "\\sigma";
           break;
         case "epsilon":
-          keyboardKeyText = "\\epsilon ";
+          keyboardKeyText = "\\epsilon";
           break;
         case "varepsilon":
-          keyboardKeyText = "\\varepsilon ";
+          keyboardKeyText = "\\varepsilon";
           break;
         case "vartheta":
-          keyboardKeyText = "\\vartheta ";
+          keyboardKeyText = "\\vartheta";
           // console.log("inputMode: " + inputMode);
           break;
         case "varphi":
-          keyboardKeyText = "\\varphi ";
+          keyboardKeyText = "\\varphi";
           break;
         case "varDelta":
-          keyboardKeyText = "\\varDelta ";
+          keyboardKeyText = "\\varDelta";
           break;
         case "infinity":
-          keyboardKeyText = "\\infty ";
+          keyboardKeyText = "\\infty";
           break;
         case "percent":
-          keyboardKeyText = "\\% ";
+          keyboardKeyText = "\\%";
           break;
         case "prod":
-          keyboardKeyText = "\\prod ";
+          keyboardKeyText = "\\prod";
           break;
         case "xi":
-          keyboardKeyText = "\\xi ";
+          keyboardKeyText = "\\xi";
           break;
         case "omega":
-          keyboardKeyText = "\\omega ";
+          keyboardKeyText = "\\omega";
           break;
         case "kappa":
-          keyboardKeyText = "\\kappa ";
+          keyboardKeyText = "\\kappa";
           break;
         case "const":
-          keyboardKeyText = "const ";
+          keyboardKeyText = "const";
           break;
         case "forall":
-          keyboardKeyText = "\\forall ";
+          keyboardKeyText = "\\forall";
           break;
         case "sqrt":
           // console.log("formula: " + formula);
           insertFormulaBase = formula.join("");
           editorText.innerHTML = "";
           formula = [];
-          keyboardKeyText = "\\sqrt{" + insertFormulaBase + "} ";
+          keyboardKeyText = "\\sqrt{" + insertFormulaBase + "}";
           break;
         case "vector":
           console.log("Vector");
@@ -804,7 +709,7 @@ function inputKeyboardFormula() {
             resultFractionB.focus();
             break;
           }
-          keyboardKeyText = "\\vec{" + insertFormulaBase + "} ";
+          keyboardKeyText = "\\vec{" + insertFormulaBase + "}";
           console.log("keyboardKeyText: " + keyboardKeyText);
           console.log("inputMode: " + inputMode);
           console.log("formula: " + formula);
@@ -834,7 +739,7 @@ function inputKeyboardFormula() {
           // console.log("formula: " + formula);
           // console.log("inputMode: " + inputMode);
           // console.log(insertFormulaIndexBottomX);
-          keyboardKeyText = insertFormulaIndexBottomX + "_n ";
+          keyboardKeyText = insertFormulaIndexBottomX + "_n";
           break;
         case "index-t":
           // console.log("formula: " + formula);
@@ -855,13 +760,13 @@ function inputKeyboardFormula() {
           }
           
           // console.log("formula: " + formula);
-          keyboardKeyText = insertFormulaIndexTopE + "^x ";
+          keyboardKeyText = insertFormulaIndexTopE + "^x";
           break;
         case "fraction":
           // console.log("formula: " + formula);
           resultFractionA.focus();
           inputFractionA();
-          keyboardKeyText = "\\frac{a}{b} ";
+          keyboardKeyText = "\\frac{a}{b}";
           // console.log("formula: " + formula);
           break;
         default:
@@ -950,52 +855,24 @@ function inputKeyboardFormula() {
   }
 }
 
-renderMathInElement(document.body);
-
-resultBase.onfocus = function () {
-  // changeModeInEnter();
-  inputKeyboardFormula();
-  inputBase();
-  // console.log("inputMode: " + inputMode);
-};
-
-keyboard.onclick = function () {
-  resultBase.focus();
-};
-
-inputMode.push("base");
-// console.log("inputMode: " + inputMode);
-
-modeHead = inputModeHead(1);
-
-resultBase.focus();
-
-for (let j = 0; j < quizButtons.length; j++) {
-  const quizButton = quizButtons[j];
-  quizTheme = quizButton.getAttribute("data-quiz-theme");
-
-  quizButton.onclick = function() {
-    answersArray.push(formula.join(""));
-    a += 20;
-    quizPercent.innerHTML = `${a} %`;
-    setProgress(a, progressCircle, progressCircumFerence);
-    window.scrollTo(0,0);
-    console.log(answersArray);
-    formula = [];
-    editorText.innerHTML = "";
-    nextQuestion();
-    if (quizButton.classList.contains("quiz-page__btn_check") == true) {
-      editor.classList.toggle("display-none");
-      keyboard.classList.toggle("display-none");
-      checkAnswers(quizTheme);
-      console.log("ddddddddddddddddddddddddddddddddddddddddddddddddd");
-    }
-    setTimeout(() => {
-      quizPages[j].classList.toggle("display-none");
-      quizPages[j + 1].classList.toggle("display-none");
-    }, 400);
+export function startMathKeyboard() {
+  resultBase.onfocus = function () {
+    inputKeyboardFormula();
+    inputBase();
   };
+
+  mathKeyboard.onclick = function () {
+    resultBase.focus();
+  };
+
+  inputMode.push("base");
+  modeHead = inputModeHead(1);
+  resultBase.focus();
 }
+
+
+
+
 
 // function info() {
 //   console.log("inputMode: " + inputMode);

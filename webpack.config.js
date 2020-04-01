@@ -14,16 +14,16 @@ module.exports = {
   ],
     
   entry: {
-    main: "./src/js/index.js",
-    cheat_sheet: "./src/js/import/pages/cheat_sheet.js",
-    catalog: "./src/js/import/pages/catalog.js",
-    quiz: "./src/js/import/pages/quiz.js"
+    index: "./src/js/index.js",
+    cheat_sheet: "./src/js/cheat_sheet.js",
+    catalog: "./src/js/catalog.js",
+    quiz: "./src/js/quiz.js"
   },
 
   output: {
     filename: "[name].js",
     chunkFilename: "[name].js",
-    publicPath: "/"
+    path: path.resolve(__dirname, "dist")
   },
 
   optimization: {
@@ -59,7 +59,8 @@ module.exports = {
   resolve: {
     alias: {
       "%modules%": path.resolve(__dirname, "src/blocks/modules"),
-      "%components%": path.resolve(__dirname, "src/blocks/components")
+      "%components%": path.resolve(__dirname, "src/blocks/components"),
+      "%node_modules%": path.resolve(__dirname, "node_modules")
     }
   }
 };

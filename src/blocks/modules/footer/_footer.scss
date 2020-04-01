@@ -1,6 +1,7 @@
 .page-footer {
 	flex: 0 0 auto;
-	background-color: #4a47a9;
+	background-color: darken($main-color, 20%);
+	color: $light-text;
 	&__wrapper {
 		@include row-flex();
 		justify-content: space-between;
@@ -9,11 +10,15 @@
 	&__logo {
 		@include col();
 		@include size(2);
+		
 	}
 
 	&__copyright {
 		@include col();
 		@include size(2);
+		a {
+			color: $light-text;
+		}
 	}
 
 	&__social {
@@ -30,5 +35,8 @@
 	&__menu {
 		@include col();
 		@include size(6);
+		a {
+			color: $light-text;
+		}
 	}
 }
