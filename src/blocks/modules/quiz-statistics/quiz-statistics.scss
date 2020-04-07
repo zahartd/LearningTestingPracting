@@ -14,13 +14,17 @@
 
 
 // Основные стили
-.quiz__statistics {
+.quiz-statistics {
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: 800px;
 
-    &-unit {
+    &__chart {
+
+    }
+
+    &__unit {
         fill: none;
         stroke-width: 10;
         animation-name: render;
@@ -28,18 +32,18 @@
         transition-property: all;
         transition-duration: 1.5s;
 
-        &:nth-child(1) {
+        &_true {
             stroke: #86cfa3;
             stroke-dasharray: 8 100;
         }
 
-        &:nth-child(2) {
+        &_wrong {
             stroke: #ffc7ec;
             stroke-dasharray: 11 100;
             stroke-dashoffset: 0;
         }
 
-        &:nth-child(3) {
+        &_null {
             stroke: #a2c6e0;
             stroke-dasharray: 11 100;
             stroke-dashoffset: 0;
@@ -51,45 +55,39 @@
         }
     }
 
-    &-legend {
+    &__legend {
         display: grid;
         max-width: 250px;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 0;
+        grid-template-rows: 0;
         grid-template-areas: "title title" "caption percent" "total total";
         margin-left: 30px;
     }
 
 
-    &-title {
+    &__title {
         grid-area: title;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 21px;
         color: #591d48;
     }
 
-    &-caption-list {
+    &__caption-list {
         grid-area: caption;
         margin: 0;
         padding: 0;
         list-style: none;
     }
 
-    &-percent-list {
-        grid-area: percent;
-    }
-
-    &-caption-item {
+    &__caption-item {
         position: relative;
-
+        height: 2rem;
         margin: 20px 0;
         padding-left: 30px;
-
         font-size: 16px;
         line-height: 18px;
         color: #591d48;
         cursor: pointer;
-
         &:hover {
             opacity: 0.8;
         }
@@ -107,20 +105,52 @@
             border-radius: 8px;
         }
 
-        &:nth-child(1)::before {
-            background-color: #86cfa3;
+        &_true {
+            &::before {
+                background-color: #86cfa3;
+            }
         }
 
-        &:nth-child(2)::before {
-            background-color: #ffc7ec;
+        &_wrong {
+            &::before {
+                background-color: #ffc7ec;
+            }
         }
 
-        &:nth-child(3)::before {
-            background-color: #a2c6e0;
+        &_null {
+            &::before {
+                background-color: #a2c6e0;
+            }
+        }
+
+
+        &_total {
+            &::before {
+                background-color: #dba811;
+            }
         }
     }
 
-    &-total {
+    &__percent-list {
+        grid-area: percent;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__percent-item {
+        position: relative;
+        height: 2rem;
+        margin: 20px 0;
+        padding-left: 30px;
+        font-size: 16px;
+        line-height: 18px;
+        color: #591d48;
+        cursor: pointer;
+        padding-top: 2px;
+    }
+
+    &__total {
         grid-area: total;
     }
 }

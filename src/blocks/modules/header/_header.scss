@@ -10,6 +10,8 @@
 	&__logo {
 		@include col();
 		@include size(5);
+		margin-bottom: 15px;
+		margin-top: 15px;
 	}
 
 	&__menu {
