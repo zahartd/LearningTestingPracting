@@ -1,7 +1,6 @@
 .quiz__progress {
     position: absolute;
-    top: -15px;
-    left: 87%;
+    left: 90%;
 }
 
 .progress-ring__circle {
@@ -18,7 +17,7 @@
     top: calc(50% - 10px);
     left: calc(50% - 24px);
 
-    color: #45de2c;
+    color: #55b541;
 }
 
 .quiz__result {
@@ -38,5 +37,5 @@
     position: absolute;
     top: calc(50% - 48px);
     left: calc(50% - 63px);
-    color: #45de2c;
+    color: #55b541;
 }

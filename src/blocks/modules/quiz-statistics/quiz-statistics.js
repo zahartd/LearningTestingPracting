@@ -30,9 +30,9 @@ export function hoveredStatistics(unitsList, unitsCaptionList) {
   unitsCaptionList.forEach(function (item, index) {
     item.addEventListener("mouseover", function () {
       if (index == 3) {
-        unitsList[0].classList.add("hovered");
-        unitsList[1].classList.add("hovered");
-        unitsList[2].classList.add("hovered");
+        unitsList[0].classList.add("quiz-statistics__unit_hovered");
+        unitsList[1].classList.add("quiz-statistics__unit_hovered");
+        unitsList[2].classList.add("quiz-statistics__unit_hovered");
       } else {
         unitsList[index].classList.add("hovered");
       }
@@ -40,11 +40,11 @@ export function hoveredStatistics(unitsList, unitsCaptionList) {
 
     item.addEventListener("mouseout", function () {
       if (index == 3) {
-        unitsList[0].classList.remove("hovered");
-        unitsList[1].classList.remove("hovered");
-        unitsList[2].classList.remove("hovered");
+        unitsList[0].classList.remove("quiz-statistics__unit_hovered");
+        unitsList[1].classList.remove("quiz-statistics__unit_hovered");
+        unitsList[2].classList.remove("quiz-statistics__unit_hovered");
       } else {
-        unitsList[index].classList.remove("hovered");
+        unitsList[index].classList.remove("quiz-statistics__unit_hovered");
       }
     });
   });

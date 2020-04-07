@@ -1,4 +1,5 @@
 export const quizPercent = document.querySelector(".progress-ring__text");
+export const quizProgress = document.querySelector(".quiz__progress");
 export const progressCircle = document.querySelector(".progress-ring__circle");
 export const progressRadius = progressCircle.r.baseVal.value;
 export const progressCircumFerence = 2 * Math.PI * progressRadius;

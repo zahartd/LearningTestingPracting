@@ -3,7 +3,6 @@
 
 import katex from "%node_modules%/katex/dist/katex.js";
 import renderMathInElement from "%node_modules%/katex/dist/contrib/auto-render.js";
-// import answersQuestions from "./assets/answers.json";
 import * as progress from "%modules%/quiz-progress/quiz-progress.js";
 import * as editor from "%modules%/math-editor/math-editor.js";
 import * as keyboard from "%modules%/math-keyboard/math-keyboard.js";
@@ -201,6 +200,7 @@ function renderStatistics(pointsList, percentList, questionsNum) {
 function quizEnd() {
   editor.mathEditor.classList.toggle("display-none");
   keyboard.mathKeyboard.classList.toggle("display-none");
+  progress.quizProgress.classList.toggle("display-none");
   quizResult.classList.toggle("display-none");
 }
 
