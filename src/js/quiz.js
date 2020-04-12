@@ -15,6 +15,7 @@ const quizResult = document.querySelector(".quiz-result");
 const quizTheme = quizPages.getAttribute("data-quiz-theme");
 const requestURL = "http://ltp.mcdir.ru/assets/answers.json";
 let answersQuestions = Object.create({}, {});
+let statusOfAns = null;
 let questionsNum = 0;
 let percentPlus = 0;
 let percent = 0;
@@ -26,6 +27,7 @@ let answersArray = [];
 let pointsTrue = 0;
 let pointsWrong = 0;
 let pointsNull = 0;
+let answerNum = 0;
 let pointsList = [];
 let ans = "";
 let trueContent = "";
@@ -80,14 +82,12 @@ function getQuizSettings(answersQuestions, quizTheme) {
 }
 
 // Проверка ответов
-function checkAnswers(answersArray, answersQuestions, quizTheme) {
+function checkAnswers(answersArray, answersQuestions, quizTheme, questionsNum) {
   for (let i = 0; i < answersArray.length; i++) {
-    // Вставка привильных ответов и ответов пользователя
+
     ans = answersArray[i];
-    trueContent = katex.renderToString(answersQuestions[quizTheme][i]["trueAnswer"].replace("\\\\", "\\"));
-    userContent = katex.renderToString(ans);
-    insertAnswers(questionsNum, trueContent, userContent);
-    
+    answerNum = i + 1;
+
     pushQuestionToJSON(answersQuestions, answersArray, quizTheme);
     postQuizJSON(requestURL, answersQuestions);
 
@@ -95,10 +95,20 @@ function checkAnswers(answersArray, answersQuestions, quizTheme) {
     if (ans === answersQuestions[quizTheme][i]["trueAnswer"]) {
       answersQuestions[quizTheme][i]["userAnswer"] = ans;
       pointsTrue++;
+      statusOfAns = true;
     } else if (ans == "" || ans == null) {
       pointsNull++;
+      ans = "-";
+      statusOfAns = null;
+    } else {
+      pointsWrong++;
+      statusOfAns = false;
     }
-    pointsWrong = questionsNum - pointsTrue - pointsNull;
+
+    // Вставка привильных ответов и ответов пользователя
+    trueContent = katex.renderToString(answersQuestions[quizTheme][i]["trueAnswer"].replace("\\\\", "\\"));
+    userContent = katex.renderToString(ans);
+    insertAnswers(answerNum, trueContent, userContent, statusOfAns);
 
   }
 
@@ -178,6 +188,7 @@ function quizNextOnClick(percentPlus) {
             quizPage[j].classList.toggle("display-none");
             quizPage[j + 1].classList.toggle("display-none");
           }, 400);
+          editor.result.focus();
         }
       };
     }
@@ -186,9 +197,9 @@ function quizNextOnClick(percentPlus) {
 
 function renderStatistics(pointsList, percentList, questionsNum) {
   // Вставка очков
-  statistics.percentItemList[0].innerHTML = `${pointsList[0]}`;
-  statistics.percentItemList[1].innerHTML = `${pointsList[1]}`;
-  statistics.percentItemList[2].innerHTML = `${pointsList[2]}`;
+  statistics.percentItemList[0].innerHTML = `${pointsList[0]} (${percentList[0]} %)`;
+  statistics.percentItemList[1].innerHTML = `${pointsList[1]} (${percentList[1]} %)`;
+  statistics.percentItemList[2].innerHTML = `${pointsList[2]} (${percentList[2]} %)`;
   statistics.percentItemList[3].innerHTML = `${questionsNum}`;
 
   // Отрисовка статистики
@@ -227,13 +238,14 @@ sendRequest("GET", requestURL)  // Получение JSON с Quiz данным�
     return progress.setCircleSettings();
   })
   .then( function() {
+    editor.result.focus();
     return quizNextOnClick(percentPlus);
   })
   .then( function() {
     return quizEnd();
   })
   .then( function() {
-    return checkAnswers(answersArray, answersQuestions, quizTheme);
+    return checkAnswers(answersArray, answersQuestions, quizTheme, questionsNum);
   })
   .then( arrayOfData => {
     console.log(arrayOfData);

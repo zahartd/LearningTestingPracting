@@ -12,7 +12,7 @@
       },
       "2":{
          "question":"Средняя скорость",
-         "trueAnswer":"\\vartheta_{ср}\\frac{s}{t}",
+         "trueAnswer":"\\vartheta_{ср}=\\frac{s}{t}",
          "userAnswer":""
       },
       "3":{
@@ -22,17 +22,17 @@
       },
       "4":{
          "question":"Ускорение при равноускоренном движении",
-         "trueAnswer":"\\vec{a}\\frac{\\vec{\\vartheta}-\\vec{\\vartheta}_{0}}{t}",
+         "trueAnswer":"\\vec{a}=\\frac{\\vec{\\vartheta}-\\vec{\\vartheta}_{0}}{t}",
          "userAnswer":""
       },
       "5":{
          "question":"Скорость при равноускоренном движении",
-         "trueAnswer":"\\vec{\\vartheta}=\\vec{\\vartheta}_{0}+\\svec{a}t",
+         "trueAnswer":"\\vec{\\vartheta}=\\vec{\\vartheta}_{0}+\\vec{a}t",
          "userAnswer":""
       },
       "6":{
          "question":"Перемещение при равноускоренном движении",
-         "trueAnswer":"\\vec{s}\\frac{\\vec{\\vartheta}+\\vec{\\vartheta}_{0}}{2}t",
+         "trueAnswer":"\\vec{s}=\\frac{\\vec{\\vartheta}+\\vec{\\vartheta}_{0}}{2}t",
          "userAnswer":""
       },
       "7":{
@@ -42,14 +42,95 @@
       },
       "8":{
          "question":"Проекция перемещения при равноускоренном движении без времени",
-         "trueAnswer":"\\frac{\\vartheta_{x}^{2}-\\vartheta_{0x}^{2}}{2a_{x}}",
+         "trueAnswer":"s_{x}=\\frac{\\vartheta_{x}^{2}-\\vartheta_{0x}^{2}}{2a_{x}}",
          "userAnswer":""
       },
       "9":{
-         "question":"Уравнение равномерного движения",
+         "question":"Уравнение равноускоренного движения",
          "trueAnswer":"x=x_{0}+\\vartheta_{0}t+\\frac{at^{2}}{2}",
          "userAnswer":""
       },
-      "length": "10"
+      "length": 10
+   },
+   "kinematics_curve":{
+      "0":{
+         "question":"Частота обращения",
+         "trueAnswer":"\\nu=\\frac{N}{t}",
+         "userAnswer":""
+      },
+      "1":{
+         "question":"Период обращения",
+         "trueAnswer":"T=\\frac{t}{N}",
+         "userAnswer":""
+      },
+      "2":{
+         "question":"Связь между периодом и частотой обращения",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "3":{
+         "question":"Линейная скорость",
+         "trueAnswer":"\\vartheta=\\frac{s}{t}",
+         "userAnswer":""
+      },
+      "4":{
+         "question":"Линейная скорость, выраженная через период обращения",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "5":{
+         "question":"Линейная скорость, выраженная через частоту обращения",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "6":{
+         "question":"Угловая скорость",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "7":{
+         "question":"Угловая скорость, выраженная через период обращения",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "8":{
+         "question":"Угловая скорость, выраженная через частоту обращения",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "9":{
+         "question":"Формула связи между линейной и угловой скоростью",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "10":{
+         "question":"Центростремительное ускорение, выраженное через линейную скорость",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "11":{
+         "question":"Центростремительное ускорение, выраженное через угловую скорость",
+         "trueAnswer":"",
+         "userAnswer":""
+      },
+      "length": 12
+   },
+   "statics":{
+      "0":{
+         "question":"Момент силы относительно оси вращения",
+         "trueAnswer":"M=F*d",
+         "userAnswer":""
+      },
+      "1":{
+         "question":"Условие равновесия тела, не имеющего оси вращения",
+         "trueAnswer":"\\displaystyle\\sum_{i=1}^n\\vec{F}_{i}=\\vec{0}",
+         "userAnswer":""
+      },
+      "2":{
+         "question":"Условие равновесия тела, имеющего ось вращения",
+         "trueAnswer":"\\displaystyle\\sum_{i=1}^nM_{i}=0",
+         "userAnswer":""
+      },
+      "length": 3
    }
 }

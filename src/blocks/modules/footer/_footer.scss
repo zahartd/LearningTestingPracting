@@ -2,39 +2,61 @@
 	flex: 0 0 auto;
 	background-color: darken($main-color, 20%);
 	color: $light-text;
+
 	&__wrapper {
-		@include row-flex();
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: 40% 20% 40%;
+		grid-template-rows: 50% 50%;
+		grid-template-areas: "logo copyright social-menu" "logo menu menu";
 	}
 
 	&__logo {
-		@include col();
-		@include size(2);
-		
+    	word-wrap: break-word;
+	    grid-area: logo;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
 	}
 
 	&__copyright {
-		@include col();
-		@include size(2);
+		word-wrap: break-word;
+		grid-area: copyright;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
 		a {
 			color: $light-text;
 		}
 	}
 
 	&__social {
-		@include col();
-		@include size(2);
-		&-list {
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+		word-wrap: break-word;
+		grid-area: social-menu;
 
+		&-list {
+			display: flex;
+			justify-content: center;
 		}
+
 		&-item {
 			font-size: 0px;
 		}
 	}
 
 	&__menu {
-		@include col();
-		@include size(6);
+		display: flex;
+		align-items: center;
+		grid-area: menu;
+
+		.main-menu__site-nav {
+			display: flex;
+		    flex-wrap: wrap;
+		    justify-content: center;
+		}
+
 		a {
 			color: $light-text;
 		}

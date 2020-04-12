@@ -287,6 +287,7 @@ function keydownBackspaceFractionB() {
 function keydownEnterFractionB() {
   if (event.code === "Enter") {
     // console.log("inputMode: " + inputMode);
+    keyboardInput = "\\frac{" + insertFormulaFractionA.join("") + "}" + "{" + insertFormulaFractionB.join("") + "}";
     inputMode.pop();
     insertFormulaFractionA = [];
     insertFormulaFractionB = [];
